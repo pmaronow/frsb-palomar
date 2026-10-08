@@ -232,10 +232,6 @@ def main() -> int:
     print(f"Report: {report_path}")
     return int(errors)
 
-
-if __name__ == "__main__":
-    sys.exit(main())
-
 DECLARATION = re.compile(
     r"^\s*(?:@\[[^\]]*\]\s*)?"
     r"(?P<modifiers>(?:(?:public|private|protected|noncomputable|unsafe|partial)\s+)*)"
@@ -471,3 +467,5 @@ def check_coverage(root: Path, declarations: list[dict], checked: bool, paper: P
     return {"status": "failed" if errors else ("passed" if checked else "not_run"),
             "errors": errors, "entries": items}
 
+if __name__ == "__main__":
+    sys.exit(main())
