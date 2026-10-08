@@ -73,19 +73,19 @@ jobs:
           ) &
           runner_disk_monitor=$!
           trap 'kill "$runner_disk_monitor" 2>/dev/null || true' EXIT
-          python3 tools/build_all.py
+          python3 tools/build_all.py --report "$RUNNER_TEMP/verification/build-all.json"
       - name: Audit proof dependencies and numbered targets
         # The manuscript is not licensed for repository redistribution. The
         # checksum-pinned preparation source must be supplied externally for
         # the complete local coverage audit. CI retains the formal proof audit.
-        run: python3 tools/audit.py --no-build --skip-coverage --report ../verification/audit-report.json
+        run: python3 tools/audit.py --no-build --skip-coverage --report "$RUNNER_TEMP/verification/audit-report.json"
       - name: Install Comparator sandbox support
         run: |
           sudo apt-get update -qq >/dev/null
           sudo apt-get install -y -qq bubblewrap >/dev/null
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Compare with Lean and both independent kernels
-        run: python3 tools/comparator_check.py
+        run: python3 tools/comparator_check.py --report "$RUNNER_TEMP/verification/comparator.json"
       - name: Record final disk usage
         if: always()
         run: df -h "$GITHUB_WORKSPACE"
@@ -94,7 +94,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: lean-verification-${{ github.sha }}
-          path: ../verification/*.json
+          path: ${{ runner.temp }}/verification/*.json
           if-no-files-found: warn
           retention-days: 14
 
