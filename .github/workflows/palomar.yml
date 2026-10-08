@@ -1,0 +1,55 @@
+name: Local formalization checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - run: python3 -m pip install -r tools/requirements.txt
+      - run: python3 tools/submission_check.py --report ../verification/submission-preflight.json
+
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - run: python3 tools/submission_check.py --sources-only
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+      - run: lake exe cache get
+      - run: python3 tools/submission_check.py --skip-metadata --require-local-mathlib
+      - name: Build every submitted Lean module
+        run: python3 tools/build_all.py
+      - name: Audit proof dependencies and numbered targets
+        # The manuscript is not licensed for repository redistribution. The
+        # checksum-pinned preparation source must be supplied externally for
+        # the complete local coverage audit. CI retains the formal proof audit.
+        run: python3 tools/audit.py --no-build --skip-coverage --report ../verification/audit-report.json
+      - name: Install Comparator sandbox support
+        run: |
+          sudo apt-get update -qq >/dev/null
+          sudo apt-get install -y -qq bubblewrap >/dev/null
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - name: Compare with Lean and both independent kernels
+        run: python3 tools/comparator_check.py
+
+# These local checks do not replace Palomar's source authentication, protected
+# comparison configuration, transitive import checks, or editorial review.

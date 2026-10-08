@@ -1,0 +1,2499 @@
+{
+  "schema_version": 1,
+  "paper": {
+    "title": "Full replica symmetry breaking in the Sherrington–Kirkpatrick model",
+    "author": "Patrick Lopatto",
+    "source_file": "../paper-source/main.tex",
+    "source_sha256": "19f324d62868c129b2703574b1f23e18a875cbc18ab7ac121db3c34a57bdbcfa",
+    "source_lines": 2061,
+    "source_url": "https://arxiv.org/abs/2607.11756v4",
+    "public_revision": "arXiv:2607.11756v4, revised 5 October 2026",
+    "public_source_sha256": "9adf4431c3f6d0a0c8cd566dfab40d45b2fb3e763be8a9794a38ea43c969ee52",
+    "source_relationship": "The statement text and line numbers refer to the separate manuscript companion. The public v4 main.tex differs only by abstract reflow; mathematical statements are unchanged.",
+    "bibliography_sha256": "cb4b6bb87c105ff75924ac92ffaf9e80db58cff0c45290a3b552dbf80fa40681",
+    "source_distribution": "Manuscript source is a separate companion, outside the MIT-licensed original code and documentation."
+  },
+  "numbered_results": [
+    {
+      "number": "1.1",
+      "kind": "theorem",
+      "label": "thm:main",
+      "source_start_line": 124,
+      "source_end_line": 137,
+      "statement_latex": "\\label{thm:main}\nFor every $\\beta>1$, there exist $\n q_\\beta\\in(0,1)$, $c_\\beta\\in(0,1)$, and a nonnegative function $\n \\rho_\\beta\\in C^\\infty([0,q_\\beta])$\nsuch that\n\\begin{equation}\\label{eq:main-decomposition}\n \\mu_\\beta(\\dd s)\n =\\rho_\\beta(s)\\1_{[0,q_\\beta)}(s)\\dd s+c_\\beta\\delta_{q_\\beta}(\\dd s).\n\\end{equation}\nMoreover,\n\\begin{equation}\\label{eq:main-conclusion}\n \\supp\\mu_\\beta=[0,q_\\beta].\n\\end{equation}",
+      "semantic_statement": "Full RSB at every beta > 1: the actual unique Parisi minimizer is supported on [0,q], q in (0,1), and equals a nonnegative density smooth up to both endpoints on [0,q), plus an atom c in (0,1) at q.",
+      "paper_dependencies": [
+        "prop:connected-support",
+        "lem:quotient",
+        "lem:smooth-up-to-q",
+        "prop:forward",
+        "lem:constant-mass",
+        "thm:atom"
+      ],
+      "semantic_cautions": [
+        "Actual minimizer existence and uniqueness; genuine measure decomposition and topological support; all-order one-sided smooth density, not just an interior smoothness assertion."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion",
+        "beta > 1",
+        "actual Parisi minimizer"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_1_1",
+        "FRSB.Numbered.result_1_1"
+      ]
+    },
+    {
+      "number": "1.2",
+      "kind": "theorem",
+      "label": "thm:atom",
+      "source_start_line": 149,
+      "source_end_line": 160,
+      "statement_latex": "\\label{thm:atom}\nLet $\\beta>1$, and let $q_\\beta$ and $c_\\beta$ be as in\n\\Cref{thm:main}. Then $m_\\beta=1-c_\\beta$\nsatisfies\n\\begin{equation}\\label{eq:atom-quadratic}\n m_\\beta\\Bigl(4-m_\\beta+\\frac1{\\beta^2q_\\beta}\\Bigr)\\le2.\n\\end{equation}\nConsequently,\n\\begin{equation}\\label{eq:atom-bound}\n c_\\beta>\\max\\bigl\\{\\sqrt2-1,\\;1-2\\beta^2q_\\beta\\bigr\\}.\n\\end{equation}",
+      "semantic_statement": "For m=1-c, m*(4-m+1/(beta^2*q)) <= 2, and c > max(sqrt(2)-1, 1-2*beta^2*q).",
+      "paper_dependencies": [
+        "thm:main",
+        "lem:quotient",
+        "prop:forward",
+        "lem:transport"
+      ],
+      "semantic_cautions": [
+        "Left mass alpha(q-) is used; alpha(q)=1 is different. Both lower bounds are strict, including when one lower bound is negative."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion",
+        "beta > 1",
+        "actual Parisi minimizer"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_1_2",
+        "FRSB.Numbered.result_1_2"
+      ]
+    },
+    {
+      "number": "2.1",
+      "kind": "proposition",
+      "label": "prop:PDE-regularity",
+      "source_start_line": 583,
+      "source_end_line": 601,
+      "statement_latex": "\\label{prop:PDE-regularity}\nFor every $\\nu\\in\\Pr([0,1])$, the solution $u_\\nu$ of\n\\eqref{eq:parisi-pde} is even in $x$, and all its positive-order spatial\nderivatives are jointly continuous on $[0,1]\\times\\R$. For every $j\\ge1$,\nthere exists a constant $K_j>0$ depending only on $\\beta$ and $j$ such\nthat $|\\partial_x^ju_\\nu|\\le K_j$ on $[0,1]\\times\\R$ for every\n$\\nu\\in\\Pr([0,1])$. Moreover,\n\\begin{equation}\\label{eq:curvature-bounds}\n |u_{\\nu,x}|\\le1,\n \\qquad 0<u_{\\nu,xx}\\le1.\n\\end{equation}\nIf\n$\\nu_n\\Rightarrow\\nu$, then for every $j\\ge0$,\n\\begin{equation}\\label{eq:uniform-derivative-convergence}\n \\sup_{(s,x)\\in[0,1]\\times\\R}\n |\\partial_x^ju_{\\nu_n}(s,x)-\\partial_x^ju_\\nu(s,x)|\\longrightarrow0.\n\\end{equation}",
+      "semantic_statement": "Every probability measure has an even Parisi potential with jointly continuous positive spatial derivatives, uniform-in-measure bounds of every order, |u_x|<=1 and 0<u_xx<=1. Weak convergence of measures yields global uniform convergence of every spatial derivative, including order zero.",
+      "paper_dependencies": [],
+      "semantic_cautions": [
+        "Global beta>0. Bounds K_j depend only on beta and j, not the measure. Order-zero potentials are unbounded, but their differences have a finite uniform norm. Classical time differentiability is not claimed at arbitrary CDF jumps."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_2_1",
+        "FRSB.Numbered.result_2_1"
+      ],
+      "typed_target": "FRSB.PDERegularityTarget",
+      "axiom_audit": "pending_final_aggregate"
+    },
+    {
+      "number": "2.2",
+      "kind": "lemma",
+      "label": "lem:approximation",
+      "source_start_line": 629,
+      "source_end_line": 636,
+      "statement_latex": "\\label{lem:approximation}\nLet $\\nu\\in\\Pr([0,1])$ and let $S\\subset[0,1]$ be finite. There exist\nfinitely supported $\\nu_n\\Rightarrow\\nu$ such that, for every $s\\in S$,\n\\begin{equation}\\label{eq:approximation-mass}\n \\nu_n([0,s))=\\nu([0,s)),\\qquad \\nu_n(\\{s\\})=\\nu(\\{s\\}).\n\\end{equation}\nFurther, $\\alpha_{\\nu_n}\\to\\alpha_\\nu$ in $L^1([0,1])$.",
+      "semantic_statement": "Every probability measure has finitely supported weak approximants preserving both left masses and point masses at every point of any prescribed finite set S, with CDF convergence in L1([0,1]).",
+      "paper_dependencies": [],
+      "semantic_cautions": [
+        "Approximants must preserve atoms exactly, not merely the right CDF. Maps must be measurable, have finite image and uniform displacement tending to zero."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_2_2",
+        "FRSB.Numbered.result_2_2"
+      ],
+      "typed_target": "FRSB.FiniteAtomicApproximationTarget",
+      "axiom_audit": "passed_standard_three_only"
+    },
+    {
+      "number": "2.3",
+      "kind": "lemma",
+      "label": "lem:diffusion-stability",
+      "source_start_line": 654,
+      "source_end_line": 671,
+      "statement_latex": "\\label{lem:diffusion-stability}\nSuppose that $\\nu_n\\Rightarrow\\nu$, and drive $X^{\\nu_n},X^\\nu$ by the\nsame Brownian motion. Then, pathwise,\n\\begin{equation}\\label{eq:diffusion-stability}\n \\sup_{0\\le s\\le1}|X_s^{\\nu_n}-X_s^\\nu|\n \\le\\beta^2\\e^{\\beta^2}\\left(\n \\|u_{\\nu_n,x}-u_{\\nu,x}\\|_\\infty\n +\\|\\alpha_{\\nu_n}-\\alpha_\\nu\\|_{L^1}\\right)\\longrightarrow0.\n\\end{equation}\nFor a fixed polynomial $f$ in finitely many positive-order spatial\nderivatives, let $f_\\nu$ denote its evaluation at the derivatives of\n$u_\\nu$. Then\n\\begin{equation}\\label{eq:moment-convergence}\n \\sup_{0\\le s\\le1}\n \\left|\\E f_{\\nu_n}(s,X_s^{\\nu_n})-\\E f_\\nu(s,X_s^\\nu)\\right|\n \\longrightarrow0.\n\\end{equation}",
+      "semantic_statement": "Same-Brownian optimal states converge uniformly pathwise, with the explicit beta^2*exp(beta^2)*(uniform gradient difference + L1 CDF difference) bound. Every fixed polynomial moment of positive spatial derivatives converges uniformly in time.",
+      "paper_dependencies": [
+        "prop:PDE-regularity"
+      ],
+      "semantic_cautions": [
+        "The estimate is on a genuinely common Brownian space and has a deterministic right side. Polynomial coefficients and finitely many derivative orders are fixed across measures."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_2_3",
+        "FRSB.Numbered.result_2_3"
+      ],
+      "axiom_audit": "Frozen theorem endpoints built with the standard Lean axioms only; final numbered bundle audit remains to be generated."
+    },
+    {
+      "number": "2.4",
+      "kind": "lemma",
+      "label": "lem:constant-mass",
+      "source_start_line": 729,
+      "source_end_line": 747,
+      "statement_latex": "\\label{lem:constant-mass}\nLet $\\nu\\in\\Pr([0,1])$, $0\\le s_0<s_1\\le1$, and suppose that\n$\\alpha_\\nu(s)=m$ for $s_0\\le s<s_1$. Write $u=u_\\nu$ and $X=X^\\nu$.\n\\begin{enumerate}\n\\item[(i)] If $m>0$, then\n\\begin{equation}\\label{eq:cole-hopf}\n \\e^{mu(t,\\cdot)}\n =P_{\\beta^2(s_1-t)}\\e^{mu(s_1,\\cdot)},\n \\qquad s_0\\le t\\le s_1.\n\\end{equation}\nIf $m=0$, then $u(t,\\cdot)=P_{\\beta^2(s_1-t)}u(s_1,\\cdot)$ for\n$s_0\\le t\\le s_1$.\n\\item[(ii)] For $s_0<t\\le s_1$, the law of $X_t$ has the density\n\\begin{equation}\\label{eq:h-transform}\n p(t,x)=\\e^{mu(t,x)}\\int_\\R g_{\\beta^2(t-s_0)}(x-y)\\,\n \\e^{-mu(s_0,y)}\\,\\P(X_{s_0}\\in\\dd y).\n\\end{equation}\n\\end{enumerate}",
+      "semantic_statement": "On a physical interval with constant CDF m, exp(m*u) is exactly its terminal heat convolution for m>0; u itself is the heat convolution when m=0. The actual state law has the displayed positive h-transform density at every later time.",
+      "paper_dependencies": [
+        "prop:PDE-regularity",
+        "lem:approximation",
+        "lem:diffusion-stability"
+      ],
+      "semantic_cautions": [
+        "Endpoints include a possible atom at the right endpoint, which changes only a null time point. Heat variance zero occurs in part (i) at terminal time. Part (ii) uses strictly positive elapsed time."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_2_4",
+        "FRSB.Numbered.result_2_4"
+      ],
+      "formalized_parts": [
+        "Cole–Hopf potential evolution, including m=0.",
+        "Literal conditional transition kernel for all bounded Borel observables on every actual constant-CDF interval."
+      ],
+      "remaining_parts": [],
+      "axiom_audit": "Frozen theorem endpoints built with the standard Lean axioms only; final numbered bundle audit remains to be generated."
+    },
+    {
+      "number": "2.5",
+      "kind": "lemma",
+      "label": "lem:Gamma-derivatives",
+      "source_start_line": 828,
+      "source_end_line": 856,
+      "statement_latex": "\\label{lem:Gamma-derivatives}\nLet $\\nu\\in\\Pr([0,1])$ and write $\\alpha=\\alpha_\\nu$, $u=u_\\nu$, and\n$\\Gamma=\\Gamma_\\nu$. The process $M$ is a bounded martingale with\n$\\dd M_s=\\beta C_s\\dd W_s$. Further, $\\Gamma\\in C^1([0,1])$,\nwith\n\\begin{equation}\\label{eq:Gamma-prime}\n \\Gamma'(s)=\\beta^2\\E C_s^2,\n\\end{equation}\nand\n\\begin{equation}\\label{eq:Gamma-prime-integral}\n \\Gamma'(t)-\\Gamma'(r)=\\beta^4\\int_r^t\n \\E[D_s^2-2\\alpha(s)C_s^3]\\dd s,\n \\qquad 0\\le r<t\\le1.\n\\end{equation}\nIf $\\alpha=m$ on an open interval $I$, then $\\Gamma\\in C^3(I)$ and\n\\begin{equation}\\label{eq:Gamma-second-gap}\n \\Gamma''(s)=\\beta^4\\E[D_s^2-2mC_s^3].\n\\end{equation}\nMore generally, let $f$ be a polynomial in finitely many positive-order\nspatial derivatives of $u$, and let $e_f(s)=\\E f(s,X_s^\\nu)$. Then\n$e_f$ is continuous on $[0,1]$, and there exist polynomials $f_0,f_1$\nof the same kind such that\n\\begin{equation}\\label{eq:moment-integral}\n e_f(t)-e_f(r)\n =\\beta^2\\int_r^t\\bigl(e_{f_0}(s)+\\alpha(s)e_{f_1}(s)\\bigr)\\dd s,\n \\qquad 0\\le r<t\\le1.\n\\end{equation}\nThe polynomials $f_0,f_1$ depend only on the polynomial defining $f$.",
+      "semantic_statement": "The actual PDE gradient along the state is a bounded martingale with Brownian coefficient beta*C. Gamma is C1 on the closed strip with Gamma prime=beta^2*E C^2 and the exact integrated derivative formula. On constant-mass open intervals Gamma is C3 with the stated second derivative. All polynomial spatial-derivative moments satisfy the stated closure/integral identity.",
+      "paper_dependencies": [
+        "prop:PDE-regularity",
+        "lem:diffusion-stability"
+      ],
+      "semantic_cautions": [
+        "Closed-interval time derivatives are one-sided. The polynomial moment identity must quantify over all finite polynomials, not only C,D,A used later. The literal stochastic differential requires a genuine stochastic integral or left-sum realization."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_2_5",
+        "FRSB.Numbered.result_2_5"
+      ],
+      "axiom_audit": "Frozen theorem endpoints built with the standard Lean axioms only; final numbered bundle audit remains to be generated.",
+      "formalized_parts": [
+        "Actual bounded gradient martingale, C1 Gamma and literal first-derivative identity.",
+        "Actual curvature interval identity.",
+        "Universal polynomial moment interval identity with explicit drift polynomials.",
+        "Genuine C3 (indeed C∞) Gamma regularity and explicit Gamma second/third derivatives on every constant-CDF open interval."
+      ],
+      "remaining_parts": [
+        "Literal stochastic-integral identity dM=beta*C*dW."
+      ],
+      "coverage_note": "The stochastic differential is realized by canonical adapted uniform Brownian left sums converging in measure at each fixed terminal time, with a supporting L2 residual theorem. It is not an arbitrary-filtration or arbitrary-partition stochastic-integral theorem. Named GammaSecond and GammaThird expressions are identified with actual derivatives on constant-CDF interiors; no derivative through an arbitrary atom is asserted."
+    },
+    {
+      "number": "2.6",
+      "kind": "lemma",
+      "label": "lem:optimality",
+      "source_start_line": 913,
+      "source_end_line": 921,
+      "statement_latex": "\\label{lem:optimality}\nLet $\\mu=\\mu_\\beta$. For every $q\\in\\supp\\mu$,\n\\begin{equation}\\label{eq:self-consistency}\n \\Gamma_\\mu(q)=q\n \\qquad\\text{and}\\qquad\n \\beta^2\\E\\bigl[u_{\\mu,xx}(q,X_q^\\mu)^2\\bigr]\\le1.\n\\end{equation}",
+      "semantic_statement": "At every support point q of the actual minimizer, Gamma(q)=q and beta^2*E u_xx(q,X_q)^2 <= 1.",
+      "paper_dependencies": [
+        "lem:Gamma-derivatives"
+      ],
+      "semantic_cautions": [
+        "The support conditions include q=0 and q=1. Endpoint derivatives require the special endpoint optimality argument, not an unsupported interior second derivative test."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_2_6",
+        "FRSB.Numbered.result_2_6"
+      ],
+      "axiom_audit": "Frozen theorem endpoints built with the standard Lean axioms only; final numbered bundle audit remains to be generated."
+    },
+    {
+      "number": "2.7",
+      "kind": "lemma",
+      "label": "lem:comparison",
+      "source_start_line": 931,
+      "source_end_line": 942,
+      "statement_latex": "\\label{lem:comparison}\nLet $T>0$, $K\\ge0$, and $I=\\R$ or $I=[0,\\infty)$. Let\n$v\\in C([0,T]\\times I)\\cap C^{1,2}((0,T]\\times I^\\circ)$ be bounded\nand satisfy\n\\begin{equation}\\label{eq:comparison-ineq}\n v_t-\\frac12v_{xx}-bv_x-\\kappa v\\ge0\n \\qquad\\text{on }(0,T]\\times I^\\circ,\n\\end{equation}\nwhere $b(t,x)\\operatorname{sgn}(x)\\le K$ and $\\kappa\\le K$.\nIf $v(0,\\cdot)\\ge0$ and, when $I=[0,\\infty)$, $v(t,0)\\ge0$, then\n$v\\ge0$ on $[0,T]\\times I$.",
+      "semantic_statement": "Bounded classical supersolutions on R or the half-line are nonnegative if nonnegative initially and at the half-line boundary, assuming only a bound on the outward drift component and an upper zeroth-order coefficient bound.",
+      "paper_dependencies": [],
+      "semantic_cautions": [
+        "Outward condition b(t,x)*sgn(x)<=K is weaker than a two-sided drift bound. Maximum principle must retain the half-line case and time terminal one-sided interpretation."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_2_7",
+        "FRSB.Numbered.result_2_7"
+      ],
+      "axiom_audit": "Frozen theorem endpoints built with the standard Lean axioms only; final numbered bundle audit remains to be generated."
+    },
+    {
+      "number": "3.1",
+      "kind": "proposition",
+      "label": "prop:backward",
+      "source_start_line": 986,
+      "source_end_line": 996,
+      "statement_latex": "\\label{prop:backward}\nLet $\\nu\\in\\Pr([0,1])$ and $s\\in[0,1]$ with $m=\\alpha_\\nu(s)>0$. With\nthe notation above, for every $x\\ge0$ we have\n\\begin{equation}\\label{eq:backward-bounds}\n mB\\le z\\le mB+1-m\\le1,\n \\qquad 0\\le Q\\le1-m,\n \\qquad 0\\le H_x\\le6(1-m).\n\\end{equation}\nIn particular, $z$, $Q$, $H$, $H_x$, and $CH_x$ are bounded on $\\R$, and\n$u_{xxx}(s,x)\\le0$ for every $x\\ge0$.",
+      "semantic_statement": "For all measures and times with m=alpha(s)>0, on x>=0: m*B<=z<=m*B+1-m<=1, 0<=Q<=1-m and 0<=H_x<=6*(1-m). The named functions are bounded on R and u_xxx<=0 on the positive half-line.",
+      "paper_dependencies": [
+        "lem:relative-bounds",
+        "lem:backward-equations",
+        "lem:comparison",
+        "lem:approximation",
+        "prop:PDE-regularity"
+      ],
+      "semantic_cautions": [
+        "Right CDF m is used in the statement; one-sided versions are separately used on finite atomic slabs. Ratios divide by the actual positive Hessian, which need not be bounded away from zero on R."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_3_1",
+        "FRSB.Numbered.result_3_1"
+      ],
+      "axiom_audit": "Frozen theorem endpoints built with the standard Lean axioms only; final numbered bundle audit remains to be generated."
+    },
+    {
+      "number": "3.2",
+      "kind": "remark",
+      "label": "rem:slope",
+      "source_start_line": 998,
+      "source_end_line": 1021,
+      "statement_latex": "\\label{rem:slope}\nThe meaning of \\Cref{prop:backward} in terms of the magnetization $B=u_x$,\ndescribed in \\Cref{s:outline}, rests on the following computation. On an\ninterval\n$[q_0,q_1)$ where $\\alpha_\\nu=m$, we write the Parisi equation in the backward time\n$\\tau=\\beta^2(q_1-s)$, so that $u_\\tau=\\frac12(u_{xx}+mu_x^2)$, and we let\n$\\chi(\\tau,B)$ be the susceptibility $u_{xx}$ at the point $x(\\tau,B)$\nwhere $u_x=B$. Differentiating at fixed $B$, we find that\n\\[\n \\partial_\\tau\\chi=\\chi^2\\Bigl(\\frac12\\chi_{BB}+m\\Bigr),\n \\qquad\n \\partial_\\tau x=z-mB,\n \\qquad\n \\partial_\\tau\\log\\chi=-Q,\n \\qquad\n \\partial_B\\partial_\\tau\\sqrt\\chi=\\frac{H_x}{4\\sqrt\\chi},\n\\]\ntogether with $z=-\\frac12\\chi_B$ and $Q=-\\chi(\\frac12\\chi_{BB}+m)$. Hence,\nat fixed magnetization and along the backward evolution, the inequality\n$z\\ge mB$ for $B\\ge0$ means that the position $x$ moves outward, $Q\\ge0$\nmeans that the susceptibility decreases, and $H_x\\ge0$ means that the slope\n$\\partial_B\\sqrt\\chi\\le0$ increases. In the forward time $t=\\beta^2s$, the\nfirst identity reads $\\partial_t\\chi=Q\\chi$, which is \\eqref{e:chipde}.",
+      "semantic_statement": "At fixed magnetization B, backward susceptibility/field derivatives satisfy chi_tau=chi^2*(chi_BB/2+m), x_tau=z-m*B, log chi_tau=-Q, and d_B d_tau sqrt chi=H_x/(4 sqrt chi), with z=-chi_B/2 and Q=-chi*(chi_BB/2+m).",
+      "paper_dependencies": [
+        "prop:backward",
+        "lem:constant-mass"
+      ],
+      "semantic_cautions": [
+        "This is substantive coordinate calculus, not only a literature remark. Actual inverse magnetization must exist for B in (-1,1), with genuine time/spatial differentiability. Forward rescaled time reverses the signs."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_3_2",
+        "FRSB.Numbered.result_3_2",
+        "FRSB.backward_magnetization_rates"
+      ],
+      "formalized_parts": [
+        "Actual inverse magnetization and susceptibility identities, with genuine time and spatial derivatives on the constant-CDF interior.",
+        "Outward position, antitone susceptibility, and increasing square-root susceptibility slope in Statement_3_2; explicit slope and rate signs in backward_magnetization_rates."
+      ],
+      "coverage_note": "Statement_3_2 contains the six coordinate identities and the time monotonicity conclusions. The additional backward_magnetization_rates declaration contains the nonpositive square-root susceptibility slope and the explicit rate signs mentioned in the remark. The global backward clock is a constant translate of the interval clock in the paper."
+    },
+    {
+      "number": "3.3",
+      "kind": "lemma",
+      "label": "lem:relative-bounds",
+      "source_start_line": 1050,
+      "source_end_line": 1058,
+      "statement_latex": "\\label{lem:relative-bounds}\nThere exists a constant $K_\\beta>0$ depending only on $\\beta$ such that\n\\begin{equation}\\label{eq:relative-derivative-bounds}\n |u_j(\\tau,x)|\\le K_\\beta C(\\tau,x)\n \\qquad\\text{for all } \\tau\\in[0,T],\\ x\\in\\R,\\ \\text{and } 2\\le j\\le5.\n\\end{equation}\nIn particular, the functions $z,z_x,z_{xx},Q,H,H_x$ are bounded on every\nconstant-mass interval by a constant depending only on $\\beta$.",
+      "semantic_statement": "Finite atomic backward potentials have |u_j|<=K_beta*C for 2<=j<=5, uniformly in time/space/measure; consequently all listed ratios and Q,H,H_x are bounded.",
+      "paper_dependencies": [
+        "prop:PDE-regularity",
+        "lem:comparison"
+      ],
+      "semantic_cautions": [
+        "The bound is relative to C, strengthening absolute derivative boundedness. The first interval may be a singleton at an atom at 1."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_3_3",
+        "FRSB.Numbered.result_3_3"
+      ],
+      "axiom_audit": "Frozen theorem endpoints built with the standard Lean axioms only; final numbered bundle audit remains to be generated.",
+      "coverage_note": "The target extends the finite atomic statement to every Parisi probability measure, uniformly in the independent CDF parameter in [0,1]."
+    },
+    {
+      "number": "3.4",
+      "kind": "lemma",
+      "label": "lem:backward-equations",
+      "source_start_line": 1113,
+      "source_end_line": 1130,
+      "statement_latex": "\\label{lem:backward-equations}\nOn each constant-mass interval, we have\n\\begin{equation}\\label{eq:weighted-backward-equations}\n\\begin{aligned}\n \\mathcal T(CQ)&=-2Q(CQ),\\\\\n \\mathcal Tz&=-2Qz,\\\\\n \\mathcal T(CH_x)&=-5Q(CH_x)+6CzQ^2.\n\\end{aligned}\n\\end{equation}\nIf $a=1$ at $\\tau=0$, then $z=B$ and $Q=H_x=0$ there. If two consecutive constant-mass intervals meet at an atom of mass\n$\\delta$, crossing the atom in backward time (decreasing $s$)\nchanges $a$ to $a-\\delta$ and gives\n\\begin{equation}\\label{eq:backward-jumps}\n CQ\\longmapsto CQ+\\delta C^2,\n \\qquad z\\longmapsto z,\n \\qquad CH_x\\longmapsto CH_x+6\\delta C^2z.\n\\end{equation}",
+      "semantic_statement": "On every finite constant-mass slab: T(CQ)=-2Q(CQ), Tz=-2Qz and T(CH_x)=-5Q(CH_x)+6CzQ^2; terminal values and all three explicit backward atomic jump formulas hold.",
+      "paper_dependencies": [
+        "lem:relative-bounds"
+      ],
+      "semantic_cautions": [
+        "Slab values use its constant mass at both endpoints. Atomic updates change the CDF parameter while u and all spatial derivatives stay continuous."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_3_4",
+        "FRSB.Numbered.result_3_4"
+      ],
+      "axiom_audit": "Frozen theorem endpoints built with the standard Lean axioms only; final numbered bundle audit remains to be generated.",
+      "formalization_scope": "The finite-support evolution proof has actual finite-cell equations. Stronger arbitrary-measure constant-CDF equations and actual singleton/left-CDF atom updates are also proved.",
+      "coverage_note": "The actual classical-time PDE identities are stated on open constant-CDF interiors, with atom updates separately asserted. Arbitrary measures with constant-CDF interiors extend the finite atomic setting."
+    },
+    {
+      "number": "4.1",
+      "kind": "proposition",
+      "label": "prop:forward",
+      "source_start_line": 1262,
+      "source_end_line": 1304,
+      "statement_latex": "\\label{prop:forward}\nLet $\\nu\\in\\Pr([0,1])$, $s\\in(0,1]$, and\n$\\lambda_s=1/(\\beta^2s)$. The law of $X_s^\\nu$ has a smooth, strictly\npositive density $p(s,\\cdot)$. Define the transformed potentials\n\\begin{equation}\\label{eq:V-def}\n V(s,x)=\\alpha_\\nu(s)u_\\nu(s,x)-\\log p(s,x),\n \\qquad\n V(s-,x)=\\alpha_\\nu(s-)u_\\nu(s,x)-\\log p(s,x),\n\\end{equation}\nand write $V(s)=-\\log g_{\\beta^2s}+W_s$ and\n$V(s-)=-\\log g_{\\beta^2s}+W_{s-}$. Thus\n\\begin{equation}\\label{eq:forward-density}\n p(s,x)=g_{\\beta^2s}(x)\\e^{\\alpha_\\nu(s)u_\\nu(s,x)-W_s(x)},\n \\qquad W_s=W_{s-}+\\nu(\\{s\\})u_\\nu(s,\\cdot).\n\\end{equation}\nThe potentials and correction terms are smooth and even in $x$. Every positive-order\nspatial derivative of $W_s$ and $W_{s-}$ is bounded by a constant depending\nonly on $\\beta$ and its order, uniformly in $\\nu,s,x$. Moreover,\n$|W_s'|,|W_{s-}'|\\le1$. Further:\n\\begin{enumerate}\n\\item[(a)] On $\\R$,\n\\[\n \\lambda_s\\le V(s)_{xx}\\le\\lambda_s+\\alpha_\\nu(s),\n\\]\nwhile $V(s)_{xxx}\\le0$ on $[0,\\infty)$.\nThe same holds for $V(s-)$ with $\\alpha_\\nu(s-)$ in place of\n$\\alpha_\\nu(s)$.\n\\item[(b)] The density satisfies\n\\begin{equation}\\label{eq:forward-density-tail}\n\\begin{aligned}\n p(s,x)&\\le\\e^{\\beta^2+|x|}g_{\\beta^2s}(x),\\\\\n p(s,x)&\\le p(s,0)\n \\exp\\bigl(\\alpha_\\nu(s)|x|-\\lambda_sx^2/2\\bigr).\n\\end{aligned}\n\\end{equation}\n\\end{enumerate}\nIf $\\nu_n$ are the approximants of \\Cref{lem:approximation} at $s$, then\n\\begin{equation}\\label{eq:forward-convergence}\n W_s^{\\nu_n}\\longrightarrow W_s^\\nu,\n \\qquad W_{s-}^{\\nu_n}\\longrightarrow W_{s-}^\\nu\n \\qquad\\text{in }C^\\infty_{\\mathrm{loc}}(\\R).\n\\end{equation}",
+      "semantic_statement": "Every positive-time state law has an even smooth strictly positive density. Its actual transformed left/right potentials have uniformly bounded positive correction derivatives, slope at most one, curvature in [lambda,lambda+alpha], third derivative nonpositive for x>=0, both exact Gaussian tail bounds, and C-infinity-local approximation convergence.",
+      "paper_dependencies": [
+        "lem:constant-mass",
+        "lem:heat-step",
+        "lem:forward-derivative-bounds",
+        "prop:backward",
+        "lem:comparison",
+        "lem:approximation",
+        "lem:diffusion-stability"
+      ],
+      "semantic_cautions": [
+        "s>0 is essential, beta>0 is global, and lambda=1/(beta^2*s). Both left/right CDF values are retained at atoms. Density is that of the actual selected state, not an arbitrary positive test density. Uniform correction bounds are independent of s and measure."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_4_1",
+        "FRSB.Numbered.result_4_1"
+      ],
+      "formalized_parts": [
+        "Actual smooth positive Brownian-bridge candidate density and all-order correction derivative bounds.",
+        "Actual finite-support optimal-state endpoint law as exact Brownian path-action tilt, retaining endpoint atoms."
+      ],
+      "remaining_parts": [
+        "Final bridge disintegration identifying candidate with actual state density.",
+        "Forward shape inequalities via heat steps and atom induction."
+      ]
+    },
+    {
+      "number": "4.2",
+      "kind": "lemma",
+      "label": "lem:heat-step",
+      "source_start_line": 1324,
+      "source_end_line": 1335,
+      "statement_latex": "\\label{lem:heat-step}\nLet $0<r<t$, and suppose that $\\nu$ is finitely supported with no atom in\n$(r/\\beta^2,t/\\beta^2)$. We take the value of $w(r,\\cdot)$ after a possible\natom at $r/\\beta^2$ and the value of $w(t,\\cdot)$ before a possible atom\nat $t/\\beta^2$, and let $Z$ be a standard Gaussian variable. Then\n\\begin{equation}\\label{eq:heat-step}\n w(t,x)=-\\log\\E\\exp\\left[-w\\left(r,\n       \\frac rt x+\\sqrt{\\frac{r(t-r)}t}\\,Z\\right)\\right]\n \\qquad\\text{for all } x\\in\\R.\n\\end{equation}\nFurther, $w(t,\\cdot)$ is even for every $t>0$.",
+      "semantic_statement": "The actual finite-atomic correction after a heat step obeys the exact log Gaussian expectation with mean (r/t)*x and variance r*(t-r)/t; it is even.",
+      "paper_dependencies": [
+        "lem:constant-mass"
+      ],
+      "semantic_cautions": [
+        "0<r<t and no atoms inside the rescaled interval. The value at r is after its atom, and at t before its possible atom."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_4_2",
+        "FRSB.Numbered.result_4_2",
+        "FRSB.forwardBridgeCorrection_even",
+        "FRSB.forwardBridgeLeftCorrection_even"
+      ],
+      "coverage_note": "Statement_4_2 contains the bridge heat-step identity, extended from finite atomic measures to arbitrary measures with zero open-interval mass. The separate final evenness sentence is supplied by forwardBridgeCorrection_even and forwardBridgeLeftCorrection_even, and also by the density/gauge conclusions of Proposition 4.1."
+    },
+    {
+      "number": "4.3",
+      "kind": "lemma",
+      "label": "lem:forward-derivative-bounds",
+      "source_start_line": 1362,
+      "source_end_line": 1370,
+      "statement_latex": "\\label{lem:forward-derivative-bounds}\nFor every $k\\ge1$, there exists a constant $c_k>0$ depending only on\n$\\beta$ and $k$ such that\n\\[\n |\\partial_x^jw(t,x)|\\le c_k\n \\qquad\\text{for all } t\\in(0,\\beta^2],\\ x\\in\\R,\\ \\text{and } 1\\le j\\le k.\n\\]\nThis holds for both one-sided values at the atoms of $\\nu$.",
+      "semantic_statement": "All positive spatial derivatives up to any order of the finite-atomic correction are bounded uniformly in measure/time/space, including both one-sided atom values.",
+      "paper_dependencies": [
+        "prop:PDE-regularity",
+        "lem:heat-step"
+      ],
+      "semantic_cautions": [
+        "Product constants are controlled by the total atomic mass, not by the number of atoms. Actual nonlinear Gaussian convolution derivatives and log-ratio identities are needed."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_4_3",
+        "FRSB.Numbered.result_4_3"
+      ],
+      "coverage_note": "The target extends the finite atomic statement to every Parisi probability measure and includes both endpoint gauges."
+    },
+    {
+      "number": "5.1",
+      "kind": "proposition",
+      "label": "prop:crossing",
+      "source_start_line": 1582,
+      "source_end_line": 1589,
+      "statement_latex": "\\label{prop:crossing}\nLet $\\nu\\in\\Pr([0,1])$, and suppose that $\\alpha_\\nu=m$ on an open\ninterval $I\\subset(0,1)$, where $m>0$. Then $\\Gamma_\\nu\\in C^3(I)$, and\nfor every $s\\in I$,\n\\begin{equation}\\label{eq:crossing}\n \\Gamma_\\nu''(s)=0\\quad\\Longrightarrow\\quad\\Gamma_\\nu'''(s)>0.\n\\end{equation}",
+      "semantic_statement": "On every nonempty open physical interval with constant positive mass m, actual Gamma is C3 and every zero of Gamma second derivative has strictly positive third derivative.",
+      "paper_dependencies": [
+        "lem:Gamma-derivatives",
+        "prop:backward",
+        "prop:forward",
+        "lem:transport",
+        "lem:crossing-decay",
+        "lem:crossing-monotone"
+      ],
+      "semantic_cautions": [
+        "Positive mass is essential for strictness. The positive covariance identity holds at all times, stronger than only its restriction to zero crossings."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_5_1",
+        "FRSB.Numbered.result_5_1"
+      ]
+    },
+    {
+      "number": "5.2",
+      "kind": "lemma",
+      "label": "lem:transport",
+      "source_start_line": 1619,
+      "source_end_line": 1633,
+      "statement_latex": "\\label{lem:transport}\nOn $\\beta^2I\\times\\R$, we have\n\\begin{equation}\\label{eq:transport-identities}\n \\mathcal DB=0,\\qquad \\mathcal DC=CQ,\\qquad \\mathcal Dz=zQ-\\tfrac12Q_x,\n \\qquad \\mathcal D\\Phi=Q\\Phi+zH_x,\n\\end{equation}\ntogether with $\\mathcal D\\log p=K/2-z^2-mC$ and\n\\begin{equation}\\label{eq:weight-transport}\n \\omega_t+(v\\omega)_x=(K/2-Q-H)\\omega.\n\\end{equation}\nFurther, for every $t\\in\\beta^2I$, we have the identity\n\\begin{equation}\\label{eq:crossing-centered-identity}\n -\\frac{(\\omega z)_x}{\\omega}=\\Phi+\\Psi.\n\\end{equation}",
+      "semantic_statement": "All displayed rescaled material-derivative identities for B,C,z,Phi, log p and the genuine omega transport/centering identities hold on the actual constant-mass strip.",
+      "paper_dependencies": [
+        "lem:constant-mass",
+        "prop:backward",
+        "prop:forward"
+      ],
+      "semantic_cautions": [
+        "Rescaled t=beta^2*s must be explicit. Weight omega=2*p*C^2 is unnormalized and defined on the whole field line before restriction to [0,infinity)."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_5_2",
+        "FRSB.Numbered.result_5_2"
+      ]
+    },
+    {
+      "number": "5.3",
+      "kind": "remark",
+      "label": "rem:weighted-law",
+      "source_start_line": 1661,
+      "source_end_line": 1685,
+      "statement_latex": "\\label{rem:weighted-law}\nWe translate \\Cref{lem:transport} into the magnetization coordinate of\n\\Cref{s:outline}. Since $B_x=C>0$, let $x(t,b)$ be the field satisfying\n$B(t,x(t,b))=b$ for a fixed magnetization $b$.\nThe identity $\\mathcal DB=0$ gives\n$\\partial_t x(t,b)=v(t,x(t,b))$, so the chain rule identifies\n$(\\mathcal DF)(t,x(t,b))$ with the partial time derivative\nof $F(t,x(t,b))$ with $b$ held fixed, where $F$ is any smooth function. Let $r=pC$, viewed as a function of $t$ and\n$B$. Since $\\dd B=C\\dd x$, the density of $M_s=u_x(s,X_s)$ is $p/C$, so\nthat $r=\\chi^2(p/C)$ and $\\omega\\dd x=2r\\dd B$. In particular, the image of $\\rho$\nunder $u_x$ has density proportional to $r$ on $[0,1)$. Since\n$\\omega=2rC$, the identity \\eqref{eq:weight-transport} together with\n$\\mathcal D\\log C=Q$ and $v_x=-Q$ gives $\\mathcal D\\log r=K/2-Q-H$. Next,\n$(\\log r)_x=(\\log p)_x+(\\log C)_x=-(N+z)$, so that\n$N+z=-\\chi\\,\\partial_B\\log r$. Differentiating once more with\n$\\partial_B=C^{-1}\\partial_x$ and $C_x=-2Cz$, we find\n$\\frac12\\chi^2r_{BB}/r=\\frac12(N^2-z^2-N_x-z_x)$, and\n\\eqref{eq:basic-derivatives} shows that this equals $K/2-3Q-H$.\nComparing with $\\mathcal D\\log r$, we find that\n$\\mathcal Dr=\\frac12\\chi^2r_{BB}+2Qr$, which is \\eqref{e:weighted-law}.\nThe formulas for $N_x$ and $z_x$ in \\eqref{eq:basic-derivatives} give\n$K=(N^2-N_x)+(z^2+z_x)$. Finally, since $\\omega=2rC$ and\n$\\partial_x=C\\,\\partial_B$, the identity \\eqref{eq:crossing-centered-identity}\nreads $-\\partial_B(\\chi zr)/r=\\Phi+\\Psi$.",
+      "semantic_statement": "The actual magnetization inverse changes field derivatives into fixed-magnetization derivatives. The actual magnetization density is p/C, its C^2-reweighted density r=p*C, and r obeys r_t=(chi^2/2)*r_BB+2Qr plus the displayed log-rate and centered identity.",
+      "paper_dependencies": [
+        "lem:transport",
+        "rem:slope",
+        "prop:forward"
+      ],
+      "semantic_cautions": [
+        "This numbered remark contains mathematical identities requiring proofs. Jacobian C and half-line factor 2 must both be tracked."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_5_3",
+        "FRSB.Numbered.result_5_3"
+      ],
+      "coverage_note": "The displayed concrete inverse-coordinate, density, Jacobian, PDE, score and centering identities are formalized. The general prose chain-rule observation for every smooth function F is not separately exposed as a universal-F theorem; its displayed concrete applications are proved."
+    },
+    {
+      "number": "5.4",
+      "kind": "lemma",
+      "label": "lem:crossing-decay",
+      "source_start_line": 1690,
+      "source_end_line": 1699,
+      "statement_latex": "\\label{lem:crossing-decay}\nFor every compact interval $J\\subset\\beta^2I$, there exists a constant\n$c_J>0$ such that\n\\[\n \\omega+|\\omega_t|+|(\\Phi\\omega)_t|\\le c_J(1+x^2)\\e^{x-x^2/(2\\beta^2)}\n \\qquad\\text{for all } t\\in J \\text{ and } x\\ge0.\n\\]\nFurther, the functions $v,z,\\Phi,\\Phi_x,\\mathcal D\\Phi,H$ are bounded on\n$J\\times[0,\\infty)$, and $v=z=0$ at $x=0$.",
+      "semantic_statement": "On compact rescaled time subintervals, omega, its time derivative and the Phi-omega time derivative satisfy the exact polynomial times Gaussian envelope; all listed auxiliary fields are bounded, with v=z=0 at x=0.",
+      "paper_dependencies": [
+        "prop:backward",
+        "prop:forward",
+        "lem:transport"
+      ],
+      "semantic_cautions": [
+        "The compact interval must lie strictly inside positive rescaled times. The displayed envelope is sufficient for differentiation and all later improper integration-by-parts boundaries."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_5_4",
+        "FRSB.Numbered.result_5_4"
+      ]
+    },
+    {
+      "number": "5.5",
+      "kind": "lemma",
+      "label": "lem:crossing-monotone",
+      "source_start_line": 1723,
+      "source_end_line": 1726,
+      "statement_latex": "\\label{lem:crossing-monotone}\nFor every $t\\in\\beta^2I$, the functions $\\Phi,K,\\Psi$ are strictly increasing\non $[0,\\infty)$ and $H$ is nondecreasing there.",
+      "semantic_statement": "For every rescaled time, actual Phi,K,Psi are strictly increasing on [0,infinity), while H is nondecreasing.",
+      "paper_dependencies": [
+        "prop:backward",
+        "prop:forward",
+        "lem:transport"
+      ],
+      "semantic_cautions": [
+        "K can have quadratic growth; its covariance must be integrable under the actual normalized weight. Strictness follows from positive curvature, positive C and m>0."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_5_5",
+        "FRSB.Numbered.result_5_5"
+      ],
+      "coverage_note": "Some targets extend monotonicity to every eligible individual time, rather than only constant-positive-mass intervals. Phi and Psi retain positive CDF mass; K strictness has no positive-mass premise."
+    },
+    {
+      "number": "5.6",
+      "kind": "corollary",
+      "label": "cor:Gamma-prime-shape",
+      "source_start_line": 1803,
+      "source_end_line": 1807,
+      "statement_latex": "\\label{cor:Gamma-prime-shape}\nLet $\\nu,I,m$ be as in \\Cref{prop:crossing}. There exists $s_*$ in the\nclosure of $I$ such that $\\Gamma_\\nu'$ is strictly decreasing on\n$I\\cap(0,s_*]$ and strictly increasing on $I\\cap[s_*,1)$.",
+      "semantic_statement": "There is a turning point in the closure of each nonempty constant-positive-mass interval such that actual Gamma prime is strictly decreasing before it and strictly increasing after it, with either piece allowed empty.",
+      "paper_dependencies": [
+        "prop:crossing",
+        "lem:crossing-decay",
+        "lem:crossing-monotone"
+      ],
+      "semantic_cautions": [
+        "The proof uses the all-time positive covariance identity, not merely the zero-crossing implication without a separate analysis theorem. Empty intervals cannot be admitted because their closure has no point."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_5_6",
+        "FRSB.Numbered.result_5_6"
+      ]
+    },
+    {
+      "number": "6.1",
+      "kind": "proposition",
+      "label": "prop:connected-support",
+      "source_start_line": 1848,
+      "source_end_line": 1851,
+      "statement_latex": "\\label{prop:connected-support}\nThere exists $q_\\beta\\in(0,1)$ such that\n$\\supp\\mu=[0,q_\\beta]$.",
+      "semantic_statement": "For every beta>1 the actual minimizer has support exactly [0,q], q in (0,1).",
+      "paper_dependencies": [
+        "lem:optimality",
+        "lem:Gamma-derivatives",
+        "cor:Gamma-prime-shape"
+      ],
+      "semantic_cautions": [
+        "Uses compact nonempty support, exclusion of delta_0 and q=1, zero initial field, and exact actual moment identities. The first gap with zero CDF is treated separately."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion",
+        "beta > 1",
+        "actual Parisi minimizer"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_6_1",
+        "FRSB.Numbered.result_6_1"
+      ]
+    },
+    {
+      "number": "6.2",
+      "kind": "lemma",
+      "label": "lem:quotient",
+      "source_start_line": 1904,
+      "source_end_line": 1914,
+      "statement_latex": "\\label{lem:quotient}\nThe functions $\\mathcal A$ and $\\mathcal B$ are continuous on $[0,1]$,\n$\\mathcal B>0$, and\n\\begin{equation}\\label{eq:quotient}\n \\alpha(s)=\\frac{\\mathcal A(s)}{2\\mathcal B(s)}\\quad(0\\le s<q),\n \\qquad\n \\mu([0,q))=\\frac{\\mathcal A(q)}{2\\mathcal B(q)}.\n\\end{equation}\nIn particular, $\\widetilde\\alpha=\\mathcal A/(2\\mathcal B)$ is a continuous\nextension of $\\alpha|_{[0,q)}$ to $[0,q]$, and $\\mu(\\{0\\})=\\alpha(0)=0$.",
+      "semantic_statement": "The actual moments A=E D^2 and B=E C^3 are continuous on [0,1], B>0; alpha=A/(2B) below q and alpha(q-)=A(q)/(2B(q)). The quotient continuously extends alpha to [0,q], and there is no atom at 0.",
+      "paper_dependencies": [
+        "prop:connected-support",
+        "lem:optimality",
+        "lem:Gamma-derivatives"
+      ],
+      "semantic_cautions": [
+        "An almost-everywhere equation is upgraded via right continuity below q, and the endpoint q uses left mass, not the right CDF."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion",
+        "beta > 1",
+        "actual Parisi minimizer"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_6_2",
+        "FRSB.Numbered.result_6_2"
+      ]
+    },
+    {
+      "number": "6.3",
+      "kind": "lemma",
+      "label": "lem:smooth-up-to-q",
+      "source_start_line": 1937,
+      "source_end_line": 1940,
+      "statement_latex": "\\label{lem:smooth-up-to-q}\nThe function $\\widetilde\\alpha$ belongs to $C^\\infty([0,q])$, and so does\nevery polynomial moment $e_f$ of \\Cref{lem:Gamma-derivatives}.",
+      "semantic_statement": "The actual quotient extension of the CDF and every polynomial positive-spatial-derivative moment are smooth on [0,q], with continuous one-sided derivatives of every order at both endpoints.",
+      "paper_dependencies": [
+        "lem:quotient",
+        "lem:Gamma-derivatives"
+      ],
+      "semantic_cautions": [
+        "The induction quantifies over every polynomial moment simultaneously. Changing alpha at q is harmless only inside Lebesgue time integrals. Smoothness is for the left extension, not the discontinuous full CDF."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion",
+        "beta > 1",
+        "actual Parisi minimizer"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_6_3",
+        "FRSB.Numbered.result_6_3"
+      ]
+    },
+    {
+      "number": "6.4",
+      "kind": "remark",
+      "label": "rem:AC-regularity",
+      "source_start_line": 2044,
+      "source_end_line": 2057,
+      "statement_latex": "\\label{rem:AC-regularity}\nAuffinger and Chen proved that if $(a,b)\\subset\\supp\\mu_P$ for a Parisi\nmeasure $\\mu_P$ of a mixed $p$-spin model, then its distribution function\nis infinitely differentiable on the half-open interval $[a,b)$\n\\cite[Theorem~2(ii)]{AuffingerChenProperties}. Their proof uses the first\nidentity in \\eqref{eq:quotient}, followed by the same differentiation of\nmoments used above. Applied with $(a,b)=(0,q_\\beta)$, as allowed by\n\\Cref{prop:connected-support}, their theorem gives smoothness on\n$[0,q_\\beta)$. The additional point here is that continuity of every\npolynomial moment at $q_\\beta$, together with the moment\nidentities and the quotient formula, allows the same\ninduction to give derivatives of every order up to that\nendpoint.",
+      "semantic_statement": "The cited earlier mixed-p-spin interior/half-open regularity theorem supplies smoothness below q; the present moment/quotient induction strengthens the actual SK result to all derivative orders at q.",
+      "paper_dependencies": [
+        "lem:smooth-up-to-q"
+      ],
+      "semantic_cautions": [
+        "The historical theorem for every mixed model is cited background; the paper-specific endpoint improvement is a substantive proved claim."
+      ],
+      "global_hypotheses": [
+        "beta > 0",
+        "zero external field",
+        "actual Parisi potential and actual zero-initial optimal diffusion",
+        "beta > 1",
+        "actual Parisi minimizer"
+      ],
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_6_4",
+        "FRSB.Numbered.result_6_4"
+      ],
+      "coverage_note": "The paper’s SK conclusion, including all-order one-sided endpoint regularity, is proved. The preceding quoted Auffinger–Chen theorem for general mixed-p-spin models is separately recorded as cited background; the project does not claim a general mixed-model theorem."
+    }
+  ],
+  "numbered_equations": [
+    {
+      "id": "equation.1.1",
+      "number": "1.1",
+      "label": "eq:SK-Hamiltonian",
+      "source_start_line": 56,
+      "source_end_line": 63,
+      "latex": "\\label{eq:SK-Hamiltonian}\n H_N^\\beta(\\sigma)\n =\n \\frac{\\beta}{\\sqrt{2N}}\n \\sum_{i,j=1}^N g_{ij}\\sigma_i\\sigma_j,\n \\qquad\n \\sigma\\in\\{-1,1\\}^N,",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.orderedFiniteHamiltonian",
+        "FRSB.orderedFiniteCouplingLaw",
+        "FRSB.orderedSKCoupling_joint_law"
+      ]
+    },
+    {
+      "id": "equation.1.2",
+      "number": "1.2",
+      "label": "eq:parisi-pde",
+      "source_start_line": 67,
+      "source_end_line": 74,
+      "latex": "\\label{eq:parisi-pde}\n \\partial_su_\\mu(s,x)\n +\\frac{\\beta^2}{2}\\left(\n u_{\\mu,xx}(s,x)+\\mu([0,s])u_{\\mu,x}(s,x)^2\n \\right)=0,\n \\qquad\n u_\\mu(1,x)=\\log\\cosh x.",
+      "status": "proved",
+      "lean_declarations": [
+        "Paper.parisiPDE_wellPosed",
+        "FRSB.pde_regularity"
+      ]
+    },
+    {
+      "id": "equation.1.3",
+      "number": "1.3",
+      "label": "eq:parisi-functional",
+      "source_start_line": 76,
+      "source_end_line": 80,
+      "latex": "\\label{eq:parisi-functional}\n \\mathcal P_\\beta(\\mu)\n =\\log2+u_\\mu(0,0)\n -\\frac{\\beta^2}{2}\\int_0^1s\\mu([0,s])\\dd s.",
+      "status": "definition",
+      "lean_declarations": [
+        "Paper.parisiPDEFunctional",
+        "Paper.parisiFunctional"
+      ]
+    },
+    {
+      "id": "equation.1.4",
+      "number": "1.4",
+      "label": "eq:main-decomposition",
+      "source_start_line": 129,
+      "source_end_line": 132,
+      "latex": "\\label{eq:main-decomposition}\n \\mu_\\beta(\\dd s)\n =\\rho_\\beta(s)\\1_{[0,q_\\beta)}(s)\\dd s+c_\\beta\\delta_{q_\\beta}(\\dd s).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.fullRSB"
+      ]
+    },
+    {
+      "id": "equation.1.5",
+      "number": "1.5",
+      "label": "eq:main-conclusion",
+      "source_start_line": 134,
+      "source_end_line": 136,
+      "latex": "\\label{eq:main-conclusion}\n \\supp\\mu_\\beta=[0,q_\\beta].",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.fullRSB"
+      ]
+    },
+    {
+      "id": "equation.1.6",
+      "number": "1.6",
+      "label": "eq:atom-quadratic",
+      "source_start_line": 153,
+      "source_end_line": 155,
+      "latex": "\\label{eq:atom-quadratic}\n m_\\beta\\Bigl(4-m_\\beta+\\frac1{\\beta^2q_\\beta}\\Bigr)\\le2.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.quantitative_atom"
+      ]
+    },
+    {
+      "id": "equation.1.7",
+      "number": "1.7",
+      "label": "eq:atom-bound",
+      "source_start_line": 157,
+      "source_end_line": 159,
+      "latex": "\\label{eq:atom-bound}\n c_\\beta>\\max\\bigl\\{\\sqrt2-1,\\;1-2\\beta^2q_\\beta\\bigr\\}.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.quantitative_atom"
+      ]
+    },
+    {
+      "id": "equation.1.8",
+      "number": "1.8",
+      "label": "e:nodrift",
+      "source_start_line": 195,
+      "source_end_line": 197,
+      "latex": "\\label{e:nodrift}\n \\dd M_s=\\beta\\,\\chi(s,M_s)\\dd W_s,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.optimalM_stochastic_identity",
+        "FRSB.magnetizationInverse_parisiGradient"
+      ]
+    },
+    {
+      "id": "equation.1.9",
+      "number": "1.9",
+      "label": "e:Gamma-magnetization",
+      "source_start_line": 200,
+      "source_end_line": 204,
+      "latex": "\\label{e:Gamma-magnetization}\n \\Gamma(s)=\\E M_s^2,\n \\qquad\n \\Gamma'(s)=\\beta^2\\E\\chi(s,M_s)^2.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Gamma",
+        "FRSB.hasDerivWithinAt_Gamma_GammaPrime",
+        "FRSB.GammaPrime_eq_source"
+      ]
+    },
+    {
+      "id": "equation.1.10",
+      "number": "1.10",
+      "label": "e:gamma-no-gap",
+      "source_start_line": 206,
+      "source_end_line": 211,
+      "latex": "\\label{e:gamma-no-gap}\n \\Gamma''(s)\n =2\\beta^4\\E\\bigl[\\chi(s,M_s)^2\\,\\Phi(s,M_s)\\bigr],\n \\qquad\n \\Phi(s,B)=\\frac12\\chi_B(s,B)^2-m\\chi(s,B).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.GammaSecond_eq_integral",
+        "FRSB.curvature_sq_crossingPhi_jet",
+        "FRSB.backward_magnetization_identities"
+      ]
+    },
+    {
+      "id": "equation.1.11",
+      "number": "1.11",
+      "label": "e:f-intro",
+      "source_start_line": 232,
+      "source_end_line": 236,
+      "latex": "\\label{e:f-intro}\n f(s)=\\frac{\\E[\\chi(s,M_s)^2\\Phi(s,M_s)]}{\\E[\\chi(s,M_s)^2]}\n =\\frac{\\Gamma''(s)}{2\\beta^2\\Gamma'(s)}\n =\\frac{(\\log\\Gamma')'(s)}{2\\beta^2},",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.integral_crossingPhi_eq_GammaSecond",
+        "FRSB.crossingWeightMass_bridge_eq_curvatureMoment2",
+        "FRSB.GammaPrime_eq_source",
+        "FRSB.hasDerivAt_deriv_Gamma_of_constant_CDF"
+      ]
+    },
+    {
+      "id": "equation.1.12",
+      "number": "1.12",
+      "label": "e:chipde",
+      "source_start_line": 310,
+      "source_end_line": 312,
+      "latex": "\\label{e:chipde}\n \\partial_t\\chi=-\\chi^2\\Bigl(\\frac12\\chi_{BB}+m\\Bigr)=Q\\chi",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivAt_magnetizationCurvature_time",
+        "FRSB.forwardMagnetizationChi_log_time",
+        "FRSB.backward_magnetization_identities"
+      ]
+    },
+    {
+      "id": "equation.1.13",
+      "number": "1.13",
+      "label": "e:weighted-law",
+      "source_start_line": 319,
+      "source_end_line": 321,
+      "latex": "\\label{e:weighted-law}\n r_t=\\frac12\\chi^2r_{BB}+2Qr",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.magnetization_weighted_law_remark"
+      ]
+    },
+    {
+      "id": "equation.1.14",
+      "number": "1.14",
+      "label": "e:phit",
+      "source_start_line": 333,
+      "source_end_line": 335,
+      "latex": "\\label{e:phit}\n\\partial_t\\Phi=Q\\Phi+zH_x.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivAt_actualCrossingPhi_constantCDF_time"
+      ]
+    },
+    {
+      "id": "equation.1.15",
+      "number": "1.15",
+      "label": "e:positive-identity-intro",
+      "source_start_line": 363,
+      "source_end_line": 366,
+      "latex": "\\label{e:positive-identity-intro}\n \\frac{\\dd f}{\\dd t}-(\\E_\\rho Q)f\n =\\frac12\\Cov_\\rho(\\Phi,K)+\\Cov_\\rho(H,\\Psi).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.crossing_forward_positive_representation"
+      ]
+    },
+    {
+      "id": "equation.1.16",
+      "number": "1.16",
+      "label": "e:factorization",
+      "source_start_line": 386,
+      "source_end_line": 388,
+      "latex": "\\label{e:factorization}\n p(s,x)=\\e^{\\alpha(s)u(s,x)}\\cdot\\e^{-V(s,x)},",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardBridgeDensity_eq_exponential",
+        "FRSB.forwardRightPotential"
+      ]
+    },
+    {
+      "id": "equation.2.1",
+      "number": "2.1",
+      "label": "eq:curvature-bounds",
+      "source_start_line": 591,
+      "source_end_line": 594,
+      "latex": "\\label{eq:curvature-bounds}\n |u_{\\nu,x}|\\le1,\n \\qquad 0<u_{\\nu,xx}\\le1.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.pde_regularity"
+      ]
+    },
+    {
+      "id": "equation.2.2",
+      "number": "2.2",
+      "label": "eq:uniform-derivative-convergence",
+      "source_start_line": 597,
+      "source_end_line": 600,
+      "latex": "\\label{eq:uniform-derivative-convergence}\n \\sup_{(s,x)\\in[0,1]\\times\\R}\n |\\partial_x^ju_{\\nu_n}(s,x)-\\partial_x^ju_\\nu(s,x)|\\longrightarrow0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.tendstoUniformlyOn_spatialDerivative_of_weak"
+      ]
+    },
+    {
+      "id": "equation.2.3",
+      "number": "2.3",
+      "label": "eq:u-linear-growth",
+      "source_start_line": 605,
+      "source_end_line": 607,
+      "latex": "\\label{eq:u-linear-growth}\n 0\\le u_\\nu(s,x)-u_\\nu(s,0)\\le|x|.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.parisiPotential_origin_growth"
+      ]
+    },
+    {
+      "id": "equation.2.4",
+      "number": "2.4",
+      "label": "eq:optimal-diffusion",
+      "source_start_line": 614,
+      "source_end_line": 618,
+      "latex": "\\label{eq:optimal-diffusion}\n \\dd X_s^\\nu\n =\\beta^2\\alpha_\\nu(s)u_{\\nu,x}(s,X_s^\\nu)\\dd s+\\beta\\dd W_s,\n \\qquad X_0^\\nu=0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.optimalState_integral_equation",
+        "Paper.boundedDriftItoCharacteristics_selectedParisiState"
+      ]
+    },
+    {
+      "id": "equation.2.5",
+      "number": "2.5",
+      "label": "eq:Gamma-def",
+      "source_start_line": 624,
+      "source_end_line": 626,
+      "latex": "\\label{eq:Gamma-def}\n \\Gamma_\\nu(s)=\\E\\bigl[u_{\\nu,x}(s,X_s^\\nu)^2\\bigr].",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.Gamma"
+      ]
+    },
+    {
+      "id": "equation.2.6",
+      "number": "2.6",
+      "label": "eq:approximation-mass",
+      "source_start_line": 632,
+      "source_end_line": 634,
+      "latex": "\\label{eq:approximation-mass}\n \\nu_n([0,s))=\\nu([0,s)),\\qquad \\nu_n(\\{s\\})=\\nu(\\{s\\}).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.preservingMeasure_left_mass",
+        "FRSB.preservingMeasure_atom_mass"
+      ]
+    },
+    {
+      "id": "equation.2.7",
+      "number": "2.7",
+      "label": "eq:diffusion-stability",
+      "source_start_line": 657,
+      "source_end_line": 662,
+      "latex": "\\label{eq:diffusion-stability}\n \\sup_{0\\le s\\le1}|X_s^{\\nu_n}-X_s^\\nu|\n \\le\\beta^2\\e^{\\beta^2}\\left(\n \\|u_{\\nu_n,x}-u_{\\nu,x}\\|_\\infty\n +\\|\\alpha_{\\nu_n}-\\alpha_\\nu\\|_{L^1}\\right)\\longrightarrow0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.optimalState_dist_le",
+        "FRSB.optimalState_uniform_convergence_of_weak"
+      ]
+    },
+    {
+      "id": "equation.2.8",
+      "number": "2.8",
+      "label": "eq:moment-convergence",
+      "source_start_line": 666,
+      "source_end_line": 670,
+      "latex": "\\label{eq:moment-convergence}\n \\sup_{0\\le s\\le1}\n \\left|\\E f_{\\nu_n}(s,X_s^{\\nu_n})-\\E f_\\nu(s,X_s^\\nu)\\right|\n \\longrightarrow0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.tendstoUniformlyOn_moment_of_weak"
+      ]
+    },
+    {
+      "id": "equation.2.9",
+      "number": "2.9",
+      "label": "eq:u-absolute-growth",
+      "source_start_line": 714,
+      "source_end_line": 717,
+      "latex": "\\label{eq:u-absolute-growth}\n 0\\le\\log\\cosh x\\le u_\\nu(s,x)\n \\le\\log\\cosh x+\\beta^2(1-s)\\le\\beta^2+|x|.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.parisiPotential_logCosh_bounds",
+        "FRSB.parisiPotential_absolute_growth"
+      ]
+    },
+    {
+      "id": "equation.2.10",
+      "number": "2.10",
+      "label": "eq:cole-hopf",
+      "source_start_line": 734,
+      "source_end_line": 738,
+      "latex": "\\label{eq:cole-hopf}\n \\e^{mu(t,\\cdot)}\n =P_{\\beta^2(s_1-t)}\\e^{mu(s_1,\\cdot)},\n \\qquad s_0\\le t\\le s_1.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.parisiPotential_exp_heat_on_constant_interval"
+      ]
+    },
+    {
+      "id": "equation.2.11",
+      "number": "2.11",
+      "label": "eq:h-transform",
+      "source_start_line": 742,
+      "source_end_line": 745,
+      "latex": "\\label{eq:h-transform}\n p(t,x)=\\e^{mu(t,x)}\\int_\\R g_{\\beta^2(t-s_0)}(x-y)\\,\n \\e^{-mu(s_0,y)}\\,\\P(X_{s_0}\\in\\dd y).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardBridgeDensity_constantMass_initialLaw_formula",
+        "FRSB.selectedState_endpoint_eq_constantMassDensityLaw"
+      ]
+    },
+    {
+      "id": "equation.2.12",
+      "number": "2.12",
+      "label": "eq:M-C-D-A",
+      "source_start_line": 816,
+      "source_end_line": 819,
+      "latex": "\\label{eq:M-C-D-A}\n M_s=u_{\\nu,x}(s,X_s^\\nu),\\quad C_s=u_{\\nu,xx}(s,X_s^\\nu),\\quad\n D_s=u_{\\nu,xxx}(s,X_s^\\nu),\\quad A_s=u_{\\nu,xxxx}(s,X_s^\\nu).",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.M",
+        "FRSB.C",
+        "FRSB.D",
+        "FRSB.A",
+        "FRSB.jetProcess"
+      ]
+    },
+    {
+      "id": "equation.2.13",
+      "number": "2.13",
+      "label": "eq:Gamma-prime",
+      "source_start_line": 833,
+      "source_end_line": 835,
+      "latex": "\\label{eq:Gamma-prime}\n \\Gamma'(s)=\\beta^2\\E C_s^2,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivWithinAt_Gamma_GammaPrime",
+        "FRSB.GammaPrime_eq_source"
+      ]
+    },
+    {
+      "id": "equation.2.14",
+      "number": "2.14",
+      "label": "eq:Gamma-prime-integral",
+      "source_start_line": 837,
+      "source_end_line": 841,
+      "latex": "\\label{eq:Gamma-prime-integral}\n \\Gamma'(t)-\\Gamma'(r)=\\beta^4\\int_r^t\n \\E[D_s^2-2\\alpha(s)C_s^3]\\dd s,\n \\qquad 0\\le r<t\\le1.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.GammaPrime_interval_integral"
+      ]
+    },
+    {
+      "id": "equation.2.15",
+      "number": "2.15",
+      "label": "eq:Gamma-second-gap",
+      "source_start_line": 843,
+      "source_end_line": 845,
+      "latex": "\\label{eq:Gamma-second-gap}\n \\Gamma''(s)=\\beta^4\\E[D_s^2-2mC_s^3].",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivAt_deriv_Gamma_of_constant_CDF",
+        "FRSB.GammaSecond_eq_integral"
+      ]
+    },
+    {
+      "id": "equation.2.16",
+      "number": "2.16",
+      "label": "eq:moment-integral",
+      "source_start_line": 850,
+      "source_end_line": 854,
+      "latex": "\\label{eq:moment-integral}\n e_f(t)-e_f(r)\n =\\beta^2\\int_r^t\\bigl(e_{f_0}(s)+\\alpha(s)e_{f_1}(s)\\bigr)\\dd s,\n \\qquad 0\\le r<t\\le1.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.moment_interval_integral_physical"
+      ]
+    },
+    {
+      "id": "equation.2.17",
+      "number": "2.17",
+      "label": "eq:MCD-SDE",
+      "source_start_line": 862,
+      "source_end_line": 867,
+      "latex": "\\label{eq:MCD-SDE}\n \\dd U_j\n =-\\frac{\\beta^2\\alpha(s)}2\n \\sum_{k=1}^{j-1}\\binom jk U_{k+1}U_{j-k+1}\\dd s\n +\\beta U_{j+1}\\dd W_s.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.finiteJetStochasticLeftSums_at_time",
+        "FRSB.memLp_finiteJetBrownianCoefficient",
+        "FRSB.memLp_finiteJetStochasticRemainder"
+      ]
+    },
+    {
+      "id": "equation.2.18",
+      "number": "2.18",
+      "label": "eq:f0-f1",
+      "source_start_line": 879,
+      "source_end_line": 884,
+      "latex": "\\label{eq:f0-f1}\n f_0=\\frac12\\sum_{i,j=1}^n\\partial_i\\partial_jf\\,U_{i+1}U_{j+1},\n \\qquad\n f_1=-\\frac12\\sum_{j=1}^n\\partial_jf\\sum_{k=1}^{j-1}\\binom jk\n U_{k+1}U_{j-k+1}.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.momentDrift0",
+        "FRSB.momentDrift1",
+        "FRSB.polynomial_generator_identity",
+        "FRSB.polynomialSpatialDerivative_twice",
+        "FRSB.nonlinearJetPolynomial_full_split"
+      ]
+    },
+    {
+      "id": "equation.2.19",
+      "number": "2.19",
+      "label": "eq:self-consistency",
+      "source_start_line": 916,
+      "source_end_line": 920,
+      "latex": "\\label{eq:self-consistency}\n \\Gamma_\\mu(q)=q\n \\qquad\\text{and}\\qquad\n \\beta^2\\E\\bigl[u_{\\mu,xx}(q,X_q^\\mu)^2\\bigr]\\le1.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Gamma_eq_overlap_of_support",
+        "FRSB.GammaPrime_le_one_of_support"
+      ]
+    },
+    {
+      "id": "equation.2.20",
+      "number": "2.20",
+      "label": "eq:comparison-ineq",
+      "source_start_line": 935,
+      "source_end_line": 938,
+      "latex": "\\label{eq:comparison-ineq}\n v_t-\\frac12v_{xx}-bv_x-\\kappa v\\ge0\n \\qquad\\text{on }(0,T]\\times I^\\circ,",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.Numbered.Statement_2_7"
+      ]
+    },
+    {
+      "id": "equation.3.1",
+      "number": "3.1",
+      "label": "eq:z-Q-H",
+      "source_start_line": 978,
+      "source_end_line": 982,
+      "latex": "\\label{eq:z-Q-H}\n z=-\\frac{C_x}{2C},\n \\qquad Q=z_x-mC,\n \\qquad H=z^2+mC-2Q.",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.backwardZ",
+        "FRSB.backwardQ",
+        "FRSB.backwardH"
+      ]
+    },
+    {
+      "id": "equation.3.2",
+      "number": "3.2",
+      "label": "eq:backward-bounds",
+      "source_start_line": 989,
+      "source_end_line": 993,
+      "latex": "\\label{eq:backward-bounds}\n mB\\le z\\le mB+1-m\\le1,\n \\qquad 0\\le Q\\le1-m,\n \\qquad 0\\le H_x\\le6(1-m).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_inequalities"
+      ]
+    },
+    {
+      "id": "equation.3.3",
+      "number": "3.3",
+      "label": "eq:relative-derivative-bounds",
+      "source_start_line": 1052,
+      "source_end_line": 1055,
+      "latex": "\\label{eq:relative-derivative-bounds}\n |u_j(\\tau,x)|\\le K_\\beta C(\\tau,x)\n \\qquad\\text{for all } \\tau\\in[0,T],\\ x\\in\\R,\\ \\text{and } 2\\le j\\le5.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.relative_derivative_bounds"
+      ]
+    },
+    {
+      "id": "equation.3.4",
+      "number": "3.4",
+      "label": "eq:weighted-backward-equations",
+      "source_start_line": 1115,
+      "source_end_line": 1121,
+      "latex": "\\label{eq:weighted-backward-equations}\n\\begin{aligned}\n \\mathcal T(CQ)&=-2Q(CQ),\\\\\n \\mathcal Tz&=-2Qz,\\\\\n \\mathcal T(CH_x)&=-5Q(CH_x)+6CzQ^2.\n\\end{aligned}",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.constantCDF_backward_weightedQ_equation",
+        "FRSB.constantCDF_backward_z_equation",
+        "FRSB.constantCDF_backward_weightedHx_equation"
+      ]
+    },
+    {
+      "id": "equation.3.5",
+      "number": "3.5",
+      "label": "eq:backward-jumps",
+      "source_start_line": 1125,
+      "source_end_line": 1129,
+      "latex": "\\label{eq:backward-jumps}\n CQ\\longmapsto CQ+\\delta C^2,\n \\qquad z\\longmapsto z,\n \\qquad CH_x\\longmapsto CH_x+6\\delta C^2z.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_actual_atom_updates",
+        "FRSB.backward_atom_updates"
+      ]
+    },
+    {
+      "id": "equation.3.6",
+      "number": "3.6",
+      "label": "eq:backward-claim",
+      "source_start_line": 1179,
+      "source_end_line": 1182,
+      "latex": "\\label{eq:backward-claim}\n v_1,v_2\\ge0\\ \\text{on }\\R,\n \\qquad v_3,v_4,v_5\\ge0\\ \\text{on }[0,\\infty)",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_inequalities",
+        "FRSB.finiteScheme_Hx_bounds_on_cells"
+      ]
+    },
+    {
+      "id": "equation.3.7",
+      "number": "3.7",
+      "label": "eq:backward-barrier-equations",
+      "source_start_line": 1201,
+      "source_end_line": 1208,
+      "latex": "\\label{eq:backward-barrier-equations}\n\\begin{aligned}\n \\mathcal Tv_1+2Qv_1&=0, &\n \\mathcal Tv_2+2Qv_2&=(1-a)C(aC+2Q),\\\\\n \\mathcal Tv_3+2Qv_3&=2Q(aB+1-a), &\n \\mathcal Tv_4+5Qv_4&=6CzQ^2,\n\\end{aligned}",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.finiteCell_generator_C",
+        "FRSB.finiteCell_generator_B",
+        "FRSB.finiteCell_generator_P",
+        "FRSB.finiteCell_generator_Z",
+        "FRSB.finiteCell_generator_R",
+        "FRSB.backward_barrier_source_algebra"
+      ]
+    },
+    {
+      "id": "equation.4.1",
+      "number": "4.1",
+      "label": "eq:V-def",
+      "source_start_line": 1266,
+      "source_end_line": 1270,
+      "latex": "\\label{eq:V-def}\n V(s,x)=\\alpha_\\nu(s)u_\\nu(s,x)-\\log p(s,x),\n \\qquad\n V(s-,x)=\\alpha_\\nu(s-)u_\\nu(s,x)-\\log p(s,x),",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.forwardRightPotential",
+        "FRSB.forwardLeftPotential"
+      ]
+    },
+    {
+      "id": "equation.4.2",
+      "number": "4.2",
+      "label": "eq:forward-density",
+      "source_start_line": 1273,
+      "source_end_line": 1276,
+      "latex": "\\label{eq:forward-density}\n p(s,x)=g_{\\beta^2s}(x)\\e^{\\alpha_\\nu(s)u_\\nu(s,x)-W_s(x)},\n \\qquad W_s=W_{s-}+\\nu(\\{s\\})u_\\nu(s,\\cdot).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardBridgeDensity",
+        "FRSB.forwardBridgeAction_eq_left_add_atom",
+        "FRSB.forwardBridgeLeftCorrection"
+      ]
+    },
+    {
+      "id": "equation.4.3",
+      "number": "4.3",
+      "label": "eq:forward-density-tail",
+      "source_start_line": 1290,
+      "source_end_line": 1296,
+      "latex": "\\label{eq:forward-density-tail}\n\\begin{aligned}\n p(s,x)&\\le\\e^{\\beta^2+|x|}g_{\\beta^2s}(x),\\\\\n p(s,x)&\\le p(s,0)\n \\exp\\bigl(\\alpha_\\nu(s)|x|-\\lambda_sx^2/2\\bigr).\n\\end{aligned}",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardBridgeDensity_gaussian_envelope",
+        "FRSB.forwardBridgeDensity_origin_relative_tail"
+      ]
+    },
+    {
+      "id": "equation.4.4",
+      "number": "4.4",
+      "label": "eq:forward-convergence",
+      "source_start_line": 1299,
+      "source_end_line": 1303,
+      "latex": "\\label{eq:forward-convergence}\n W_s^{\\nu_n}\\longrightarrow W_s^\\nu,\n \\qquad W_{s-}^{\\nu_n}\\longrightarrow W_{s-}^\\nu\n \\qquad\\text{in }C^\\infty_{\\mathrm{loc}}(\\R).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forward_correction_preserving_cloc"
+      ]
+    },
+    {
+      "id": "equation.4.5",
+      "number": "4.5",
+      "label": "eq:heat-step",
+      "source_start_line": 1329,
+      "source_end_line": 1333,
+      "latex": "\\label{eq:heat-step}\n w(t,x)=-\\log\\E\\exp\\left[-w\\left(r,\n       \\frac rt x+\\sqrt{\\frac{r(t-r)}t}\\,Z\\right)\\right]\n \\qquad\\text{for all } x\\in\\R.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardBridgeLeftCorrection_heat_of_zero_mass"
+      ]
+    },
+    {
+      "id": "equation.4.6",
+      "number": "4.6",
+      "label": "eq:F-induction",
+      "source_start_line": 1377,
+      "source_end_line": 1381,
+      "latex": "\\label{eq:F-induction}\n 0<F\\le1\n \\qquad\\text{and}\\qquad\n |F^{(j)}|\\le L_iF\\quad\\text{for all } 0\\le j\\le k",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardBridgeFactor_pos",
+        "FRSB.forwardBridgeFactor_le_one",
+        "FRSB.forwardBridgeFactor_relative_derivative_bound"
+      ]
+    },
+    {
+      "id": "equation.4.7",
+      "number": "4.7",
+      "label": "eq:heat-step-monotone",
+      "source_start_line": 1447,
+      "source_end_line": 1451,
+      "latex": "\\label{eq:heat-step-monotone}\n |w_x(t,x)|\\le\\sup_{y\\in\\R}|w_x(r,y)|,\n \\qquad\n w_{xx}(t,x)\\le\\max\\Bigl\\{0,\\sup_{y\\in\\R}w_{xx}(r,y)\\Bigr\\}",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardHeatCorrection_slope_bound",
+        "FRSB.forwardHeatCorrection_curvature_bound"
+      ]
+    },
+    {
+      "id": "equation.4.8",
+      "number": "4.8",
+      "label": "eq:forward-slope-curvature",
+      "source_start_line": 1460,
+      "source_end_line": 1464,
+      "latex": "\\label{eq:forward-slope-curvature}\n |w_x(t,x)|\\le\\alpha_\\nu(s)\\le1\n \\qquad\\text{and}\\qquad\n w_{xx}(t,x)\\le\\alpha_\\nu(s)",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.norm_forwardBridgeAction_deriv_le_cdf",
+        "FRSB.forwardBridgeFactor_first_relative_bound_cdf",
+        "FRSB.forwardBridgeCorrection_slope_bound_cdf",
+        "FRSB.forwardBridgeCorrection_curvature_le_cdf",
+        "Paper.parisiCDF_le_one"
+      ]
+    },
+    {
+      "id": "equation.4.9",
+      "number": "4.9",
+      "label": "eq:forward-shape-evolution",
+      "source_start_line": 1477,
+      "source_end_line": 1479,
+      "latex": "\\label{eq:forward-shape-evolution}\n R_t=\\frac12R_{xx}-\\widetilde V_xR_x-3\\widetilde V_{xx}R.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivAt_forwardHeatLogJet_three_time",
+        "FRSB.logJet3_heat_algebra"
+      ]
+    },
+    {
+      "id": "equation.5.1",
+      "number": "5.1",
+      "label": "eq:crossing",
+      "source_start_line": 1586,
+      "source_end_line": 1588,
+      "latex": "\\label{eq:crossing}\n \\Gamma_\\nu''(s)=0\\quad\\Longrightarrow\\quad\\Gamma_\\nu'''(s)>0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.crossing_proposition"
+      ]
+    },
+    {
+      "id": "equation.5.2",
+      "number": "5.2",
+      "label": "eq:basic-derivatives",
+      "source_start_line": 1610,
+      "source_end_line": 1615,
+      "latex": "\\label{eq:basic-derivatives}\n\\begin{gathered}\n C_x=-2Cz,\\qquad z_x=Q+mC,\\qquad Q_x=zQ-\\tfrac12H_x,\\\\\n N_x=V_{xx}+Q,\\qquad \\omega_x=-(N+3z)\\omega.\n\\end{gathered}",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivAt_backwardD",
+        "FRSB.hasDerivAt_backwardZ",
+        "FRSB.hasDerivAt_backwardQ",
+        "FRSB.hasDerivAt_bridgeCrossingN",
+        "FRSB.hasDerivAt_bridgeCrossingWeight"
+      ]
+    },
+    {
+      "id": "equation.5.3",
+      "number": "5.3",
+      "label": "eq:transport-identities",
+      "source_start_line": 1621,
+      "source_end_line": 1624,
+      "latex": "\\label{eq:transport-identities}\n \\mathcal DB=0,\\qquad \\mathcal DC=CQ,\\qquad \\mathcal Dz=zQ-\\tfrac12Q_x,\n \\qquad \\mathcal D\\Phi=Q\\Phi+zH_x,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.crossing_transport"
+      ]
+    },
+    {
+      "id": "equation.5.4",
+      "number": "5.4",
+      "label": "eq:weight-transport",
+      "source_start_line": 1626,
+      "source_end_line": 1628,
+      "latex": "\\label{eq:weight-transport}\n \\omega_t+(v\\omega)_x=(K/2-Q-H)\\omega.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.actual_crossing_weight_transport"
+      ]
+    },
+    {
+      "id": "equation.5.5",
+      "number": "5.5",
+      "label": "eq:crossing-centered-identity",
+      "source_start_line": 1630,
+      "source_end_line": 1632,
+      "latex": "\\label{eq:crossing-centered-identity}\n -\\frac{(\\omega z)_x}{\\omega}=\\Phi+\\Psi.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivAt_bridgeCrossingWeight_mul_z"
+      ]
+    },
+    {
+      "id": "equation.5.6",
+      "number": "5.6",
+      "label": "eq:crossing-monotone",
+      "source_start_line": 1736,
+      "source_end_line": 1742,
+      "latex": "\\label{eq:crossing-monotone}\n\\begin{aligned}\n \\Phi_x&=2z(2Q+3mC),\\\\\n K_x&=2N(V_{xx}+Q)-V_{xxx}+2zQ,\\\\\n \\Psi_x&=(Q+mC)N+z(V_{xx}+2Q+2mC)+\\tfrac12H_x.\n\\end{aligned}",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivAt_actualCrossingPhi",
+        "FRSB.hasDerivAt_bridgeCrossingK",
+        "FRSB.hasDerivAt_bridgeCrossingPsi"
+      ]
+    },
+    {
+      "id": "equation.5.7",
+      "number": "5.7",
+      "label": "eq:Gamma-as-integrals",
+      "source_start_line": 1752,
+      "source_end_line": 1754,
+      "latex": "\\label{eq:Gamma-as-integrals}\n \\Gamma_\\nu''(s)=2\\beta^4\\mathcal Z f.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.integral_crossingPhi_eq_GammaSecond",
+        "FRSB.crossingMeanPhi_eq_expectation",
+        "FRSB.hasDerivAt_deriv_Gamma_of_constant_CDF"
+      ]
+    },
+    {
+      "id": "equation.5.8",
+      "number": "5.8",
+      "label": "eq:positive-representation",
+      "source_start_line": 1780,
+      "source_end_line": 1783,
+      "latex": "\\label{eq:positive-representation}\n f_t-(\\E_\\rho Q)f\n =\\frac12\\Cov_\\rho(\\Phi,K)+\\Cov_\\rho(H,\\Psi)>0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.crossing_forward_positive_representation"
+      ]
+    },
+    {
+      "id": "equation.6.1",
+      "number": "6.1",
+      "label": "eq:quotient",
+      "source_start_line": 1907,
+      "source_end_line": 1911,
+      "latex": "\\label{eq:quotient}\n \\alpha(s)=\\frac{\\mathcal A(s)}{2\\mathcal B(s)}\\quad(0\\le s<q),\n \\qquad\n \\mu([0,q))=\\frac{\\mathcal A(q)}{2\\mathcal B(q)}.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.minimizer_quotient"
+      ]
+    },
+    {
+      "id": "equation.6.2",
+      "number": "6.2",
+      "label": "eq:alpha-prime",
+      "source_start_line": 1968,
+      "source_end_line": 1973,
+      "latex": "\\label{eq:alpha-prime}\n \\alpha'(s)\n =\\frac{\\beta^2\\,\\E\\bigl[A_s^2-12\\alpha(s)C_sD_s^2+6\\alpha(s)^2C_s^4\\bigr]}\n {2\\,\\E C_s^3},\n \\qquad 0\\le s<q,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.parisiSmoothDensity_eq_expectation_formula_of_support_interval",
+        "FRSB.momentQuotient_hasDerivAt_endpoints_of_support_interval"
+      ]
+    },
+    {
+      "id": "equation.6.3",
+      "number": "6.3",
+      "label": "eq:atom-centering",
+      "source_start_line": 2016,
+      "source_end_line": 2019,
+      "latex": "\\label{eq:atom-centering}\n \\E_{\\rho_q}\\Phi=\\E_{\\rho_q}\\Psi=0,\n \\qquad 2\\E_{\\rho_q}B^2=m\\E_{\\rho_q}C.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.terminal_crossing_centering",
+        "FRSB.terminal_crossing_second_moment_relation"
+      ]
+    }
+  ],
+  "unnumbered_displays": [
+    {
+      "id": "display.1",
+      "section": 1,
+      "source_start_line": 82,
+      "source_end_line": 84,
+      "latex": "F(\\beta)=\\inf_{\\mu\\in\\Pr([0,1])} \\mathcal P_\\beta (\\mu),",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.orderedFinite_parisiFormula",
+        "FRSB.orderedSK_tendsto_minimizer"
+      ]
+    },
+    {
+      "id": "display.2",
+      "section": 1,
+      "source_start_line": 108,
+      "source_end_line": 110,
+      "latex": "\\operatorname{supp}\\mu_\\beta=[0,q_\\beta],",
+      "status": "prediction",
+      "lean_declarations": [],
+      "coverage_note": "Physics prediction stated in the introduction, proved here independently as Theorem 1.1. This quotation is a report of the prediction and is not a mathematical premise."
+    },
+    {
+      "id": "display.3",
+      "section": 1,
+      "source_start_line": 185,
+      "source_end_line": 187,
+      "latex": "M_s=u_x(s,X_s),",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.M"
+      ]
+    },
+    {
+      "id": "display.4",
+      "section": 1,
+      "source_start_line": 221,
+      "source_end_line": 223,
+      "latex": "\\frac1{b-a}\\int_a^b\\Gamma'(s)\\dd s=1.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.Gamma_integral",
+        "FRSB.Gamma_eq_overlap_of_support"
+      ]
+    },
+    {
+      "id": "display.5",
+      "section": 1,
+      "source_start_line": 302,
+      "source_end_line": 305,
+      "latex": "z=-\\frac12\\chi_B,\\qquad Q=-\\chi\\Bigl(\\frac12\\chi_{BB}+m\\Bigr),\\qquad\n H=z^2+m\\chi-2Q,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_magnetization_identities"
+      ]
+    },
+    {
+      "id": "display.6",
+      "section": 1,
+      "source_start_line": 326,
+      "source_end_line": 328,
+      "latex": "\\frac{\\dd f}{\\dd t}=\\E_\\rho[\\partial_t\\Phi]+\\Cov_\\rho(\\Phi,\\partial_t\\log r).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.crossing_forward_positive_representation"
+      ]
+    },
+    {
+      "id": "display.7",
+      "section": 1,
+      "source_start_line": 338,
+      "source_end_line": 341,
+      "latex": "\\partial_t\\log r=\\frac K2-Q-H,\n \\qquad K=(N^2-N_x)+(z^2+z_x).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.magnetization_weighted_law_remark"
+      ]
+    },
+    {
+      "id": "display.8",
+      "section": 1,
+      "source_start_line": 346,
+      "source_end_line": 349,
+      "latex": "\\E_\\rho[zH_x]\n =\\Cov_\\rho(H,\\Phi)+\\Cov_\\rho(H,\\Psi)",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.actual_crossing_H_IBP"
+      ]
+    },
+    {
+      "id": "display.9",
+      "section": 1,
+      "source_start_line": 357,
+      "source_end_line": 360,
+      "latex": "\\E_\\rho[Q\\Phi]\n =(\\E_\\rho Q)f+\\Cov_\\rho(Q,\\Phi),",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.crossing_positive_representation_identity"
+      ]
+    },
+    {
+      "id": "display.10",
+      "section": 1,
+      "source_start_line": 376,
+      "source_end_line": 378,
+      "latex": "\\exp\\Bigl(-\\int_{t_0}^t\\E_{\\rho_r}Q\\dd r\\Bigr)f(t)",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.crossing_shape_of_positive_representation",
+        "FRSB.hasDerivAt_crossing_integrating_factor"
+      ]
+    },
+    {
+      "id": "display.11",
+      "section": 1,
+      "source_start_line": 398,
+      "source_end_line": 402,
+      "latex": "\\text{(S1) } Q\\ge0,\\qquad \\text{(S2) } z\\ge mB,\\qquad\n \\text{(S3) } H_x\\ge0,\\qquad \\text{(S4) } V_{xx}\\ge\\frac1{\\beta^2s},\\qquad\n \\text{(S5) } V_{xxx}\\le0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_inequalities",
+        "FRSB.forward_proposition"
+      ]
+    },
+    {
+      "id": "display.12",
+      "section": 1,
+      "source_start_line": 480,
+      "source_end_line": 484,
+      "latex": "\\alpha(s)=\\frac{\\E[\\chi^2\\chi_B^2]}{2\\E\\chi^3}\n =\\frac{\\E u_{xxx}(s,X_s)^2}{2\\E u_{xx}(s,X_s)^3},\n \\qquad 0\\le s<q_\\beta,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.minimizer_quotient",
+        "FRSB.backward_magnetization_identities"
+      ]
+    },
+    {
+      "id": "display.13",
+      "section": 1,
+      "source_start_line": 493,
+      "source_end_line": 498,
+      "latex": "\\alpha(q_\\beta-)\n =\\frac{2\\E[M^2\\chi^2]}{\\E[\\chi^3]},\n \\qquad M=\\tanh X_{q_\\beta},\\quad\n \\chi=\\chi(q_\\beta,M).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.momentQuotient_terminal_mass_of_support_interval",
+        "FRSB.terminal_crossing_second_moment_relation"
+      ]
+    },
+    {
+      "id": "display.14",
+      "section": 2,
+      "source_start_line": 566,
+      "source_end_line": 570,
+      "latex": "g_t(x)=\\frac1{\\sqrt{2\\pi t}}\\e^{-x^2/(2t)},\n \\qquad\n P_tf(x)=\\E f(x+\\sqrt t\\,Z),",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.heatDensity",
+        "Paper.heatSemigroup"
+      ]
+    },
+    {
+      "id": "display.15",
+      "section": 2,
+      "source_start_line": 678,
+      "source_end_line": 688,
+      "latex": "\\begin{aligned}\n \\Delta(s)\n &\\le\\beta^2\\int_0^s\\bigl|\\alpha_n(r)u_{n,x}(r,X_r^{\\nu_n})\n -\\alpha(r)u_x(r,X_r^\\nu)\\bigr|\\dd r\\\\\n &\\le\\beta^2\\int_0^s\\bigl(|\\alpha_n(r)-\\alpha(r)|\n +\\|u_{n,x}-u_x\\|_\\infty+\\Delta(r)\\bigr)\\dd r\\\\\n &\\le\\beta^2\\bigl(\\|\\alpha_n-\\alpha\\|_{L^1}+\\|u_{n,x}-u_x\\|_\\infty\\bigr)\n +\\beta^2\\int_0^s\\Delta(r)\\dd r\n\\end{aligned}",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.optimalState_L1_dist_le",
+        "FRSB.optimalState_dist_le"
+      ]
+    },
+    {
+      "id": "display.16",
+      "section": 2,
+      "source_start_line": 700,
+      "source_end_line": 704,
+      "latex": "\\bigl|\\partial_x^ju_n(s,X_s^{\\nu_n})-\\partial_x^ju(s,X_s^\\nu)\\bigr|\n \\le\\|\\partial_x^ju_n-\\partial_x^ju\\|_\\infty+K_{j+1}\\Delta(1)\n \\qquad\\text{for all } s\\in[0,1].",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.jetProcess_uniform_convergence_of_weak"
+      ]
+    },
+    {
+      "id": "display.17",
+      "section": 2,
+      "source_start_line": 754,
+      "source_end_line": 756,
+      "latex": "h(t,Y_t)-h(r,y)=\\beta\\int_r^t h_x(\\sigma,Y_\\sigma)\\dd W_\\sigma.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.constantMassHeat_stochastic_identity",
+        "FRSB.integrable_constantMassHeatCoefficient_sq_prod"
+      ]
+    },
+    {
+      "id": "display.18",
+      "section": 2,
+      "source_start_line": 774,
+      "source_end_line": 776,
+      "latex": "F(\\sigma,x)=\\frac{P_{\\beta^2(t-\\sigma)}[h(t,\\cdot)\\varphi](x)}{h(\\sigma,x)}.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.parisiBackwardQuotient",
+        "FRSB.gaussianHeatFlow_parisiHeatWeight_on_constant_interval"
+      ],
+      "axiom_audit": "passed_standard_three_only"
+    },
+    {
+      "id": "display.19",
+      "section": 2,
+      "source_start_line": 779,
+      "source_end_line": 782,
+      "latex": "F_\\sigma+\\frac{\\beta^2}{2}F_{xx}+\\beta^2mu_xF_x=0,\n \\qquad F(t,\\cdot)=\\varphi.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.capped_parisiBackwardQuotient_PDE",
+        "FRSB.parisiBackwardQuotient_terminal"
+      ],
+      "axiom_audit": "passed_standard_three_only",
+      "implementation_note": "The genuine capped globally C1,2 test agrees with the literal heat quotient on every strictly interior stochastic interval; the terminal value is exact, and weighted identities extend to the terminal endpoint by continuity."
+    },
+    {
+      "id": "display.20",
+      "section": 2,
+      "source_start_line": 786,
+      "source_end_line": 788,
+      "latex": "|F_x|\\le\\|\\varphi'\\|_\\infty+2m\\|\\varphi\\|_\\infty.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.abs_parisiBackwardQuotientDx_le"
+      ],
+      "axiom_audit": "passed_standard_three_only"
+    },
+    {
+      "id": "display.21",
+      "section": 2,
+      "source_start_line": 791,
+      "source_end_line": 794,
+      "latex": "\\E[\\varphi(X_t)\\mid\\mathcal F_r]=F(r,X_r),\n \\qquad s_0\\le r<t.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.condExp_selectedParisiState_constantMass",
+        "FRSB.parisiBackwardQuotient_eq_kernel_integral"
+      ]
+    },
+    {
+      "id": "display.22",
+      "section": 2,
+      "source_start_line": 800,
+      "source_end_line": 803,
+      "latex": "\\E[\\varphi(X_t)\\mid\\mathcal F_r]\n =\\int_\\R\\varphi(x)\\,\\frac{g_{\\beta^2(t-r)}(x-X_r)\\,h(t,x)}{h(r,X_r)}\\dd x.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.condExp_selectedParisiState_constantMass",
+        "FRSB.parisiConstantMassKernel_apply_actual"
+      ]
+    },
+    {
+      "id": "display.23",
+      "section": 2,
+      "source_start_line": 948,
+      "source_end_line": 951,
+      "latex": "\\Theta_t-\\tfrac12\\Theta_{xx}-b\\Theta_x-\\kappa\\Theta\n \\ge\\e^{(2K+2)t}\\bigl((K+3)(1+x^2)-1\\bigr)>0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.bounded_supersolution_nonneg_quadratic",
+        "FRSB.outward_drift_quadratic"
+      ]
+    },
+    {
+      "id": "display.24",
+      "section": 3,
+      "source_start_line": 1006,
+      "source_end_line": 1014,
+      "latex": "\\partial_\\tau\\chi=\\chi^2\\Bigl(\\frac12\\chi_{BB}+m\\Bigr),\n \\qquad\n \\partial_\\tau x=z-mB,\n \\qquad\n \\partial_\\tau\\log\\chi=-Q,\n \\qquad\n \\partial_B\\partial_\\tau\\sqrt\\chi=\\frac{H_x}{4\\sqrt\\chi},",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_magnetization_identities"
+      ]
+    },
+    {
+      "id": "display.25",
+      "section": 3,
+      "source_start_line": 1027,
+      "source_end_line": 1030,
+      "latex": "u(\\tau,x)=u_\\nu(1-\\tau/\\beta^2,x),\n \\qquad a(\\tau)=\\alpha_\\nu(1-\\tau/\\beta^2),",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.backwardTime",
+        "FRSB.backwardTauD"
+      ]
+    },
+    {
+      "id": "display.26",
+      "section": 3,
+      "source_start_line": 1042,
+      "source_end_line": 1045,
+      "latex": "\\mathcal L=\\frac12\\partial_x^2+aB\\partial_x,\n \\qquad \\mathcal T=\\partial_\\tau-\\mathcal L,",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.backwardCellDrift"
+      ]
+    },
+    {
+      "id": "display.27",
+      "section": 3,
+      "source_start_line": 1063,
+      "source_end_line": 1067,
+      "latex": "\\mathcal TU\n =a\\bigl(C^2,\\,3Cu_3,\\,4Cu_4+3u_3^2,\\,\n                     5Cu_5+10u_3u_4\\bigr)=MU,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.finiteCell_generator_J_identity",
+        "FRSB.finiteCell_backwardD_equation"
+      ]
+    },
+    {
+      "id": "display.28",
+      "section": 3,
+      "source_start_line": 1073,
+      "source_end_line": 1076,
+      "latex": "\\mathcal TJ=\\frac{U\\cdot MU}{J}\n -\\frac{J^2|U_x|^2-(U\\cdot U_x)^2}{2J^3}\\le K_\\beta J,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.finiteCell_generator_J_identity",
+        "FRSB.finiteCell_generator_J_le",
+        "FRSB.jetMatrix4_norm_le"
+      ]
+    },
+    {
+      "id": "display.29",
+      "section": 3,
+      "source_start_line": 1083,
+      "source_end_line": 1086,
+      "latex": "\\frac{J(0,x)^2}{C(0,x)^2}=576B^6-732B^4+236B^2+5\\le85\n \\qquad\\text{for all } x\\in\\R,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backwardTauJ_terminal_ratio",
+        "FRSB.backwardTauJ_terminal_le",
+        "FRSB.terminal_derivative_polynomial_le"
+      ]
+    },
+    {
+      "id": "display.30",
+      "section": 3,
+      "source_start_line": 1092,
+      "source_end_line": 1095,
+      "latex": "\\mathcal Tv-K_\\beta v\n =10\\e^{K_\\beta\\tau}\\mathcal TC-(\\mathcal TJ-K_\\beta J)\\ge0",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.finiteCell_JBarrier_generator_identity",
+        "FRSB.finiteCell_JBarrier_supersolution",
+        "FRSB.backwardJBarrier_initial_nonneg"
+      ]
+    },
+    {
+      "id": "display.31",
+      "section": 3,
+      "source_start_line": 1134,
+      "source_end_line": 1138,
+      "latex": "\\mathcal T(fg)=f\\,\\mathcal Tg+g\\,\\mathcal Tf-f_xg_x,\n \\qquad\n \\mathcal T(\\log f)=\\frac{\\mathcal Tf}f+\\frac12(\\log f)_x^2,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_barrier_source_algebra",
+        "FRSB.backward_z_evolution_jet"
+      ]
+    },
+    {
+      "id": "display.32",
+      "section": 3,
+      "source_start_line": 1149,
+      "source_end_line": 1153,
+      "latex": "\\mathcal T(P_x)=-2Q_xP-2QP_x+aCP_x,\n \\qquad\n \\mathcal T(zP)=-4QzP-z_xP_x.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_weightedQ_evolution_jet",
+        "FRSB.backward_weightedHx_evolution_jet"
+      ]
+    },
+    {
+      "id": "display.33",
+      "section": 3,
+      "source_start_line": 1155,
+      "source_end_line": 1158,
+      "latex": "\\mathcal T(CH_x)=4Q_xP+8QzP+(4Q-2aC+2z_x)P_x\n =4CQQ_x+8CzQ^2+6QP_x.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_weightedHx_evolution_jet"
+      ]
+    },
+    {
+      "id": "display.34",
+      "section": 3,
+      "source_start_line": 1174,
+      "source_end_line": 1177,
+      "latex": "v_1=CQ,\\qquad v_2=(1-a)C-CQ,\\qquad v_3=aB+1-a-z,\\qquad\n v_4=CH_x,\\qquad v_5=6(1-a)C-CH_x,",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.backwardTauP",
+        "FRSB.backwardTauR",
+        "FRSB.backwardTauRUpper"
+      ]
+    },
+    {
+      "id": "display.35",
+      "section": 3,
+      "source_start_line": 1210,
+      "source_end_line": 1212,
+      "latex": "\\mathcal Tv_5+5Qv_5=6C\\bigl[(1-a)(aC+5Q)-zQ^2\\bigr].",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_barrier_source_algebra",
+        "FRSB.backward_last_source_nonneg"
+      ]
+    },
+    {
+      "id": "display.36",
+      "section": 3,
+      "source_start_line": 1234,
+      "source_end_line": 1237,
+      "latex": "\\delta C^2,\\qquad \\delta C(1-C),\\qquad \\delta(1-B),\\qquad\n 6\\delta C^2z,\\qquad 6\\delta C(1-Cz),",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backward_barrier_atom_updates",
+        "FRSB.backward_atom_increments_nonneg"
+      ]
+    },
+    {
+      "id": "display.37",
+      "section": 4,
+      "source_start_line": 1283,
+      "source_end_line": 1285,
+      "latex": "\\lambda_s\\le V(s)_{xx}\\le\\lambda_s+\\alpha_\\nu(s),",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardRightPotential_curvature_bounds"
+      ]
+    },
+    {
+      "id": "display.38",
+      "section": 4,
+      "source_start_line": 1309,
+      "source_end_line": 1311,
+      "latex": "w(t,x)=W_{t/\\beta^2}(x),\\qquad \\widetilde V(t,x)=-\\log g_t(x)+w(t,x),",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.forwardBridgeCorrection",
+        "FRSB.forwardRightPotential"
+      ]
+    },
+    {
+      "id": "display.39",
+      "section": 4,
+      "source_start_line": 1342,
+      "source_end_line": 1344,
+      "latex": "g_t(x)\\e^{-w(t,x)}=\\int_\\R g_{t-r}(x-y)\\,g_r(y)\\e^{-w(r,y)}\\dd y.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardHeatCorrection_density"
+      ]
+    },
+    {
+      "id": "display.40",
+      "section": 4,
+      "source_start_line": 1346,
+      "source_end_line": 1348,
+      "latex": "g_{t-r}(x-y)\\,g_r(y)=g_t(x)\\,g_{r(t-r)/t}\\bigl(y-\\tfrac rtx\\bigr).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.gaussian_bridge_density"
+      ]
+    },
+    {
+      "id": "display.41",
+      "section": 4,
+      "source_start_line": 1365,
+      "source_end_line": 1368,
+      "latex": "|\\partial_x^jw(t,x)|\\le c_k\n \\qquad\\text{for all } t\\in(0,\\beta^2],\\ x\\in\\R,\\ \\text{and } 1\\le j\\le k.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forward_derivative_bounds"
+      ]
+    },
+    {
+      "id": "display.42",
+      "section": 4,
+      "source_start_line": 1402,
+      "source_end_line": 1406,
+      "latex": "\\bigl|\\partial_x^j(F\\e^{-\\delta u})\\bigr|\n \\le\\sum_{l=0}^j\\binom jl|F^{(j-l)}|\\,|\\partial_x^l\\e^{-\\delta u}|\n \\le(1+2^kc'\\delta)L_iF\\e^{-\\delta u}",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.atom_relative_derivative_bound",
+        "FRSB.norm_iteratedDeriv_exp_neg_mul_le_delta"
+      ]
+    },
+    {
+      "id": "display.43",
+      "section": 4,
+      "source_start_line": 1415,
+      "source_end_line": 1419,
+      "latex": "|\\partial_x^jF(t,x)|\n \\le\\theta^j\\E|\\partial_x^jF(t_{i+1},\\theta x+bZ)|\n \\le L_{i+1}\\E F(t_{i+1},\\theta x+bZ)=L_{i+1}F(t,x)",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.iteratedDeriv_gaussianScaledAverage",
+        "FRSB.gaussianScaledAverage_relative_derivative_bound"
+      ]
+    },
+    {
+      "id": "display.44",
+      "section": 4,
+      "source_start_line": 1433,
+      "source_end_line": 1435,
+      "latex": "\\langle f\\rangle=\\frac{\\E[f(Y)\\e^{-w(r,Y)}]}{\\E\\e^{-w(r,Y)}}",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.forwardTiltExpectation"
+      ]
+    },
+    {
+      "id": "display.45",
+      "section": 4,
+      "source_start_line": 1440,
+      "source_end_line": 1445,
+      "latex": "w_x(t,x)=\\theta\\langle w_x(r,\\cdot)\\rangle,\n \\qquad\n w_{xx}(t,x)=\\theta^2\\bigl(\\langle w_{xx}(r,\\cdot)\\rangle\n                     -\\Var_{\\langle\\cdot\\rangle}(w_x(r,\\cdot))\\bigr).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivAt_forwardHeatCorrection",
+        "FRSB.hasDerivAt_deriv_forwardHeatCorrection",
+        "FRSB.forwardTilt_variance_nonneg"
+      ]
+    },
+    {
+      "id": "display.46",
+      "section": 4,
+      "source_start_line": 1472,
+      "source_end_line": 1474,
+      "latex": "w_t=\\frac12w_{xx}-\\frac xt w_x-\\frac12w_x^2.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivAt_forwardHeatJet_time"
+      ]
+    },
+    {
+      "id": "display.47",
+      "section": 4,
+      "source_start_line": 1495,
+      "source_end_line": 1500,
+      "latex": "-\\widetilde V_x=-\\frac xt-w_x\\le1\n \\qquad\\text{and}\\qquad\n -3\\widetilde V_{xx}=-\\frac3t-3w_{xx}\\le3c_2\n \\qquad\\text{for } x\\ge0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardBridgeCorrection_slope_bound",
+        "FRSB.forward_derivative_bounds"
+      ]
+    },
+    {
+      "id": "display.48",
+      "section": 4,
+      "source_start_line": 1522,
+      "source_end_line": 1525,
+      "latex": "0\\le w(t,0)\\le\\beta^2+\\frac t2\n \\qquad\\text{for all } t\\in(0,\\beta^2].",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forward_correction_origin_bounds_rescaled"
+      ]
+    },
+    {
+      "id": "display.49",
+      "section": 4,
+      "source_start_line": 1545,
+      "source_end_line": 1549,
+      "latex": "\\E\\varphi(X_s^\\nu)=\\lim_{n\\to\\infty}\\E\\varphi(X_s^{\\nu_n})\n =\\lim_{n\\to\\infty}\\int_\\R\\varphi\\,p_n(s,\\cdot)\\dd x\n =\\int_\\R\\varphi\\,\\widetilde p\\dd x,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.selectedState_endpoint_eq_bridgeDensity",
+        "FRSB.tendsto_integral_optimalStateReal_of_weak"
+      ]
+    },
+    {
+      "id": "display.50",
+      "section": 4,
+      "source_start_line": 1561,
+      "source_end_line": 1565,
+      "latex": "\\frac{p(s,x)}{p(s,0)}\n =\\exp\\bigl(\\alpha_\\nu(s)(u_\\nu(s,x)-u_\\nu(s,0))\n -(V(s,x)-V(s,0))\\bigr).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.forwardBridgeDensity_origin_relative_tail"
+      ]
+    },
+    {
+      "id": "display.51",
+      "section": 5,
+      "source_start_line": 1598,
+      "source_end_line": 1602,
+      "latex": "\\omega=2pC^2,\\qquad \\mathcal Z=\\int_0^\\infty\\omega\\dd x,\n \\qquad \\rho(\\dd x)=\\frac{\\omega(x)}{\\mathcal Z}\\dd x,\n \\qquad \\Phi=2z^2-mC,\\qquad f=\\E_\\rho\\Phi,",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.bridgeCrossingWeight",
+        "FRSB.crossingWeightMass",
+        "FRSB.crossingWeightLaw",
+        "FRSB.actualCrossingPhi",
+        "FRSB.crossingMeanPhi"
+      ]
+    },
+    {
+      "id": "display.52",
+      "section": 5,
+      "source_start_line": 1605,
+      "source_end_line": 1608,
+      "latex": "N=V_x+z-mB,\\qquad K=N^2-V_{xx}+z^2+mC,\\qquad\n \\Psi=z(N+z)-Q.",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.bridgeCrossingN",
+        "FRSB.bridgeCrossingK",
+        "FRSB.bridgeCrossingPsi"
+      ]
+    },
+    {
+      "id": "display.53",
+      "section": 5,
+      "source_start_line": 1652,
+      "source_end_line": 1655,
+      "latex": "\\omega_t+(v\\omega)_x=\\omega(\\mathcal D\\log\\omega+v_x)\n =\\omega\\Bigl(\\frac K2-z^2-mC+Q\\Bigr),",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.actual_crossing_weight_transport"
+      ]
+    },
+    {
+      "id": "display.54",
+      "section": 5,
+      "source_start_line": 1693,
+      "source_end_line": 1696,
+      "latex": "\\omega+|\\omega_t|+|(\\Phi\\omega)_t|\\le c_J(1+x^2)\\e^{x-x^2/(2\\beta^2)}\n \\qquad\\text{for all } t\\in J \\text{ and } x\\ge0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.crossing_decay"
+      ]
+    },
+    {
+      "id": "display.55",
+      "section": 5,
+      "source_start_line": 1710,
+      "source_end_line": 1713,
+      "latex": "\\omega_t=\\bigl(v(N+3z)+K/2-H\\bigr)\\omega,\n \\qquad (\\Phi\\omega)_t=(\\mathcal D\\Phi-v\\Phi_x)\\omega+\\Phi\\omega_t,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.crossingPhysicalWeightT_eq_transport",
+        "FRSB.hasDerivAt_crossingPhysicalPhiWeight_time"
+      ]
+    },
+    {
+      "id": "display.56",
+      "section": 5,
+      "source_start_line": 1761,
+      "source_end_line": 1764,
+      "latex": "(\\Phi\\omega)_t=(\\mathcal D\\Phi)\\omega-(\\Phi v\\omega)_x\n +\\Phi(K/2-Q-H)\\omega.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.actual_crossing_weight_transport",
+        "FRSB.hasDerivAt_actualCrossingPhi_constantCDF_time"
+      ]
+    },
+    {
+      "id": "display.57",
+      "section": 5,
+      "source_start_line": 1768,
+      "source_end_line": 1771,
+      "latex": "f_t=\\E_\\rho[Q\\Phi+zH_x]\n       +\\Cov_\\rho(\\Phi,K/2-Q-H).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.actual_crossing_mean_transport"
+      ]
+    },
+    {
+      "id": "display.58",
+      "section": 5,
+      "source_start_line": 1774,
+      "source_end_line": 1777,
+      "latex": "\\E_\\rho[zH_x]=\\E_\\rho[H(\\Phi+\\Psi)]\n =\\Cov_\\rho(H,\\Phi)+\\Cov_\\rho(H,\\Psi).",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.actual_crossing_H_IBP"
+      ]
+    },
+    {
+      "id": "display.59",
+      "section": 5,
+      "source_start_line": 1785,
+      "source_end_line": 1788,
+      "latex": "2\\Cov_\\rho(g,h)\n =\\E[(g(Y)-g(Y'))(h(Y)-h(Y'))]",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.crossingCovariance_independent_copies"
+      ]
+    },
+    {
+      "id": "display.60",
+      "section": 5,
+      "source_start_line": 1815,
+      "source_end_line": 1818,
+      "latex": "g(t)=\\exp\\Bigl(-\\int_{t_0}^t\\E_{\\rho_r}Q\\dd r\\Bigr)f(t),\n \\qquad t\\in\\beta^2I.",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.crossing_shape_of_positive_representation"
+      ]
+    },
+    {
+      "id": "display.61",
+      "section": 5,
+      "source_start_line": 1820,
+      "source_end_line": 1823,
+      "latex": "g'(t)=\\exp\\Bigl(-\\int_{t_0}^t\\E_{\\rho_r}Q\\dd r\\Bigr)\n \\bigl(f_t-(\\E_\\rho Q)f\\bigr)>0.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.hasDerivAt_crossing_integrating_factor",
+        "FRSB.crossing_forward_positive_representation"
+      ]
+    },
+    {
+      "id": "display.62",
+      "section": 6,
+      "source_start_line": 1843,
+      "source_end_line": 1845,
+      "latex": "\\alpha=\\alpha_\\mu,\\qquad u=u_\\mu,\\qquad X=X^\\mu,\\qquad \\Gamma=\\Gamma_\\mu,",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.alpha",
+        "FRSB.Gamma",
+        "FRSB.optimalState",
+        "FRSB.parisiMinimizer"
+      ]
+    },
+    {
+      "id": "display.63",
+      "section": 6,
+      "source_start_line": 1869,
+      "source_end_line": 1872,
+      "latex": "b=\\Gamma(b)=\\int_0^b\\Gamma'(s)\\dd s\n <b\\Gamma'(b)\\le b,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.no_positive_first_endpoint",
+        "FRSB.Gamma_integral",
+        "FRSB.GammaPrime_le_one_of_support"
+      ]
+    },
+    {
+      "id": "display.64",
+      "section": 6,
+      "source_start_line": 1883,
+      "source_end_line": 1886,
+      "latex": "\\Gamma'(s)\\le\\max\\{\\Gamma'(a),\\Gamma'(b)\\}\\le1\n \\qquad\\text{for } s\\in[a,b].",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.shaped_function_le_endpoints",
+        "FRSB.no_gap_of_crossing_shape"
+      ]
+    },
+    {
+      "id": "display.65",
+      "section": 6,
+      "source_start_line": 1899,
+      "source_end_line": 1902,
+      "latex": "\\mathcal A(s)=\\E D_s^2,\\qquad \\mathcal B(s)=\\E C_s^3\n \\qquad\\text{for } s\\in[0,1].",
+      "status": "definition",
+      "lean_declarations": [
+        "FRSB.quotientNumerator",
+        "FRSB.quotientDenominator"
+      ]
+    },
+    {
+      "id": "display.66",
+      "section": 6,
+      "source_start_line": 1922,
+      "source_end_line": 1925,
+      "latex": "\\int_r^t\\bigl(\\mathcal A(s)-2\\alpha(s)\\mathcal B(s)\\bigr)\\dd s=0\n \\qquad\\text{for all } 0\\le r<t\\le q,",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.GammaPrime_interval_integral",
+        "FRSB.GammaPrime_eq_one_on_support_interval"
+      ]
+    },
+    {
+      "id": "display.67",
+      "section": 6,
+      "source_start_line": 1945,
+      "source_end_line": 1949,
+      "latex": "e_f(t)-e_f(r)\n =\\beta^2\\int_r^t\n \\bigl(e_{f_0}(s)+\\widetilde\\alpha(s)e_{f_1}(s)\\bigr)\\dd s",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.moment_interval_integral_physical",
+        "FRSB.minimizer_moments_smooth"
+      ]
+    },
+    {
+      "id": "display.68",
+      "section": 6,
+      "source_start_line": 2000,
+      "source_end_line": 2005,
+      "latex": "\\begin{gathered}\n z=B,\\qquad Q=(1-m)C,\\qquad N=V_-'+(1-m)B,\\\\\n \\Phi=2B^2-mC,\\qquad \\Psi=BV_-'+(2-m)B^2-(1-m)C.\n \\end{gathered}",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.backwardZ_terminal_overlap",
+        "FRSB.terminal_crossing_centering"
+      ]
+    },
+    {
+      "id": "display.69",
+      "section": 6,
+      "source_start_line": 2024,
+      "source_end_line": 2028,
+      "latex": "0=\\E_{\\rho_q}\\Psi\n \\ge(2-m+\\lambda)\\E_{\\rho_q}B^2-(1-m)\\E_{\\rho_q}C\n =\\frac{m(4-m+\\lambda)-2}{2}\\E_{\\rho_q}C.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.terminal_atom_quadratic_of_shape_and_centering"
+      ]
+    }
+  ],
+  "cited_background": [
+    {
+      "id": "unique-minimizer",
+      "scope": "The actual zero-field Parisi functional has a unique probability-measure minimizer at every beta>0.",
+      "source_lines": [
+        84,
+        88
+      ],
+      "citation": "AuffingerChenUnique, Corollary 1",
+      "formalization_role": "The minimizing measure is constructed by compactness and continuity; zero-field uniqueness is proved for beta nonzero by strict convexity, covering the paper domain.",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.existsUnique_parisi_minimizer",
+        "FRSB.parisiMinimizer_unique"
+      ],
+      "coverage_note": "Existence is proved for every field. The cited uniqueness result is discharged here at zero field for beta nonzero; no claim of a proved general-field uniqueness theorem is made."
+    },
+    {
+      "id": "Talagrand-formula-ordered-pairs",
+      "scope": "physical ordered-pair SK model with beta/sqrt(2N), including diagonal couplings, has its limit equal the infimum of the actual PDE functional",
+      "source_lines": [
+        55,
+        83
+      ],
+      "citation": "Talagrand2006 and AuffingerChenUnique",
+      "formalization_role": "reuse earlier unordered-pair result only after proving the exact common-noise covariance/sign bridge",
+      "status": "proved",
+      "lean_declarations": [
+        "FRSB.orderedFinite_parisiFormula",
+        "FRSB.orderedSK_tendsto_minimizer"
+      ]
+    },
+    {
+      "id": "historical-high-temperature-and-RSB",
+      "scope": "delta_0 for beta<=1, nontriviality for beta>1, known support/regularity/atom results and near-critical FRSB",
+      "source_lines": [
+        90,
+        122
+      ],
+      "formalization_role": "historical comparison; paper independently proves nontriviality, origin support and interior maximal point in Proposition 6.1",
+      "status": "historical_context",
+      "coverage_note": "Introductory literature comparison, not a new theorem about every cited historical model. The SK support and nontriviality conclusions used here are independently proved in the numbered results."
+    },
+    {
+      "id": "zero-temperature-and-physics-predictions",
+      "scope": "cited beta to infinity/zero-temperature results and numerical/asymptotic physics predictions",
+      "source_lines": [
+        109,
+        170
+      ],
+      "formalization_role": "cited background and predictions, not logical premises of the new numbered results",
+      "status": "cited_background",
+      "coverage_note": "Cited zero-temperature results and reported physics predictions, not mathematical premises or newly asserted general-model results of this paper."
+    },
+    {
+      "id": "AC-mixed-model-regularity",
+      "scope": "cited all mixed-p-spin half-open CDF smoothness theorem",
+      "source_lines": [
+        2044,
+        2057
+      ],
+      "formalization_role": "historical component of Remark 6.4; actual SK endpoint improvement must be proved",
+      "status": "cited_background",
+      "coverage_note": "The quoted Auffinger–Chen theorem is for general mixed-p-spin models. The paper’s SK specialization and its all-order terminal endpoint improvement are proved as result_6_4. No general mixed-model regularity theorem is claimed."
+    }
+  ],
+  "semantic_scope": {
+    "smooth_closed_interval": "The paper defines C-infinity([0,q]) as interior smoothness with continuous extensions of every derivative to both endpoints. Time derivatives at 0 and q are one-sided; the discontinuous actual CDF at q is not asserted smooth.",
+    "support": "Topological support of the actual Borel probability measure on [0,1], identified with its real image, not the set of atoms.",
+    "density": "A chosen smooth positive density representing the actual selected optimal diffusion law at each s>0; identities for arbitrary densities do not prove the physical targets.",
+    "weak_approximation": "Convergence in the weak topology of probability measures, not convergence assumed in a stronger bespoke metric.",
+    "SDE_realization": "Projective Gaussian probability space BrownianSample = nonnegative-real times to real values, carrying an everywhere-continuous Brownian modification and its natural filtration. The Wiener measure on continuous paths is a pushforward. Actual strong pathwise diffusion; stochastic identities use canonical adapted uniform left sums at each fixed terminal time, with L2 or in-measure convergence. No usual augmentation, arbitrary-filtration, or arbitrary-partition theorem is asserted.",
+    "numbered_target_correspondence": "The closed numbered targets include stronger variants and auxiliary identities. The explicit slope sign in Remark 3.2 and the evenness sentence in Lemma 4.2 have additional declaration mappings. Remark 5.3 does not separately expose its generic chain-rule paragraph as a universal-function theorem.",
+    "proof_status": "A proposition-valued target is a definition; a corresponding theorem is a supplied proof declaration. Source classifications are distinct from fresh compilation, transitive-axiom auditing, and independent kernel verification of a specific source revision."
+  },
+  "audit_summary": {
+    "numbered_result_count": 26,
+    "numbered_equation_count": 63,
+    "unnumbered_display_count": 69,
+    "proof_trust_requirements": [
+      "no sorry/admit in Solution or its dependencies",
+      "no custom theorem axioms",
+      "no native_decide reliance",
+      "conditional theorem premises remain explicit"
+    ],
+    "verification_note": "This ledger records mathematical source correspondence and supplied declaration mappings. Fresh compiler, exact-target, transitive-axiom, Comparator and independent kernel outcomes are reported separately for the prepared source revision by the repository verification tools. Historical audit reports are not reused as a pass.",
+    "review_attribution": "The preparation and source comparison were automated Codex work. Author attribution and maintainer responsibility do not establish human mathematical review."
+  }
+}

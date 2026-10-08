@@ -1,0 +1,13 @@
+module
+
+public import FRSB.CrossMomentTransfer
+
+@[expose] public section
+#print axioms FRSB.integral_halfLine_bridgeCrossingWeight_even
+#print axioms FRSB.crossingWeightMass_bridge_eq_curvatureMoment2
+#print axioms FRSB.integral_bridgeCrossingWeightLaw_even
+#print axioms FRSB.integral_crossingPhi_eq_GammaSecond
+#print axioms FRSB.integral_crossingThirdSource_eq_GammaThird
+#print axioms FRSB.GammaThird_pos_of_GammaSecond_zero
+
+#print axioms FRSB.integrable_bridgeCrossingWeightLaw_of_curvature_tilt
