@@ -24,20 +24,56 @@ jobs:
       - run: python3 tools/submission_check.py --report ../verification/submission-preflight.json
 
   lean:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
       - run: python3 tools/submission_check.py --sources-only
+      - name: Reclaim hosted runner disk space
+        # The full proof build needs more space than the stock runner leaves
+        # free. These preinstalled SDKs are not used by Lean or the kernels.
+        run: |
+          df -h "$GITHUB_WORKSPACE"
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet \
+            /usr/local/.ghcup /opt/ghc /usr/share/swift \
+            /opt/hostedtoolcache/CodeQL
+          df -h "$GITHUB_WORKSPACE"
+          runner_available_bytes=$(df -B1 --output=avail "$GITHUB_WORKSPACE" | tail -n 1)
+          if (( runner_available_bytes < 25 * 1024 * 1024 * 1024 )); then
+            echo "::error::The full Lean verification requires at least 25 GiB of free disk space before installation."
+            exit 1
+          fi
       - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
         with:
-          build: false
-      - run: lake exe cache get
+          auto-config: "false"
+          build: "false"
+          test: "false"
+          lint: "false"
+          use-mathlib-cache: "false"
+          use-github-cache: "false"
+      - name: Fetch the pinned Mathlib cache once
+        run: |
+          lake exe cache get
+          # Remove downloaded archives, retaining extracted proof artifacts.
+          lake exe cache clean!
+          df -h "$GITHUB_WORKSPACE"
       - run: python3 tools/submission_check.py --skip-metadata --require-local-mathlib
       - name: Build every submitted Lean module
-        run: python3 tools/build_all.py
+        run: |
+          (
+            while true; do
+              df -h "$GITHUB_WORKSPACE"
+              if [[ -d .lake/build ]]; then
+                du -sh .lake/build
+              fi
+              sleep 60
+            done
+          ) &
+          runner_disk_monitor=$!
+          trap 'kill "$runner_disk_monitor" 2>/dev/null || true' EXIT
+          python3 tools/build_all.py
       - name: Audit proof dependencies and numbered targets
         # The manuscript is not licensed for repository redistribution. The
         # checksum-pinned preparation source must be supplied externally for
@@ -50,6 +86,17 @@ jobs:
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Compare with Lean and both independent kernels
         run: python3 tools/comparator_check.py
+      - name: Record final disk usage
+        if: always()
+        run: df -h "$GITHUB_WORKSPACE"
+      - name: Preserve structured verification reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lean-verification-${{ github.sha }}
+          path: ../verification/*.json
+          if-no-files-found: warn
+          retention-days: 14
 
 # These local checks do not replace Palomar's source authentication, protected
 # comparison configuration, transitive import checks, or editorial review.
